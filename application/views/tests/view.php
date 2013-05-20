@@ -27,8 +27,10 @@
 
 <div id="main" style="text-align: center">
 	<div id="slide" style="position:relative; height:500px; width:700px; display:inline-block; text-align:left">
-		<div style="position:absolute; top:50%; height:40px; margin-top:-20px; text-align:center; width:100%">
-			<a href="#" id="btnStart">Clic Aqu&iacute; cuando est&eacute; listo para empezar</a>
+		<div id="loading" style="position:absolute; top:50%; height:40px; margin-top:-20px; text-align:center; width:100%">
+			<img src="/psytest/resources/img/ajax-loader.gif"/> 
+			<br/>Espere mientras se carga la prueba...<br/>
+			<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>
 		</div>
 	</div>
 	<div id="buttons" style="text-align:center">
@@ -43,336 +45,63 @@
 	</div>
 </div>
 
+<script src="/psytest/resources/js/tests.js"></script>
+<script src="/psytest/resources/js/testsDialog.js"></script>
+
 <script>
- 	var slides = new Array();
- 	var images = new Array();
- 	var results = new Array();
- 	var testData = new Array();
- 	var date = null;
- 	var startTime = 0;
- 	var endTime = 0;
- 	var numPreloaded = 0;
- 	var current = 0;
- 	var timer;
+// Loads data of the test
+testData.testId = <?php echo $test['id'] ?>; 
+exposureTime = <?php echo $test['exposure']?>;
 
- 	testData.testId = <?php echo $test['id'] ?>; 
-	
- 	slides = [<?php 
- 			foreach ($slides as $slide) {
- 				echo "{";
- 				echo "path: '/psytest/resources/img/" . $slide['path'] . "', ";
- 				echo "emotion: '" . $slide['emotion'] . "', ";
- 				echo "posx: " . ((empty($slide['posx']))? "null" : $slide['posx']) . ", ";
- 				echo "posy: " . ((empty($slide['posy']))? "null" : $slide['posy']) . ", ";
- 				echo "color: " . $slide['color'] . ", ";
- 				echo "rotation: " . $slide['rotation'] . ", ";
- 				echo "flip: " . $slide['flip'] . ", ";
- 				echo "width: 93, ";
- 				echo "height: 124";
- 				echo "}, ";
- 			}
- 			?>];
-		
- 	
-	function preload(arrayOfImages) {
-	    $(arrayOfImages).each(function(i){
-	    	images[i] = $('<img/>', {'src': this.path, 'id': 'img'+i});
-	    	images[i].css({position:'relative'});
-
-	    	images[i].load(function () {
-	    		numPreloaded++;
-
-	    		if (numPreloaded == images.length) {
-		    		//start();
-	    		}
-			});
-	    });
-	}
-	
-	function getTime() {
-		date = new Date();
-		return date.getTime();
-	}
-
-	function doStart() {
-		// start timer
-		timer = setInterval(function(){ start(); }, 1000);
-	}
-	
-	function start() {
-		clearInterval(timer);
-		
-		// set first slide
-		nextSlide();
-				
-		// start timer
-		timer = setInterval(function(){ slideshow(); }, <?php echo $test['exposure']?>);
-	}
-
-	function slideshow()
-	{
-		if (current <= images.length) {
-			results[current-1] = {
-			    target: slides[current-1].emotion, 
-			    actual: null,
-		    };
-
-			if (current < images.length) {
-	    		nextSlide();
-			} else {
-				stopTimer();
-				console.log(results);
-				displayResults();
-			}
+// Loads information of the slides of the test
+slides = [<?php 
+		foreach ($slides as $slide) {
+			echo "{";
+			echo "path: '/psytest/resources/img/" . $slide['path'] . "', ";
+			echo "emotion: '" . $slide['emotion'] . "', ";
+			echo "posx: " . ((empty($slide['posx']))? "null" : $slide['posx']) . ", ";
+			echo "posy: " . ((empty($slide['posy']))? "null" : $slide['posy']) . ", ";
+			echo "color: " . $slide['color'] . ", ";
+			echo "rotation: " . $slide['rotation'] . ", ";
+			echo "flip: " . $slide['flip'] . ", ";
+			echo "width: 93, ";
+			echo "height: 124";
+			echo "}, ";
 		}
-	}
-
-	function stopTimer() {
-		clearInterval(timer);
-		timer = null;
-
-		/*for (var i = 1; i < 99999; i++)
-	        window.clearInterval(i);*/
-	}
+		?>];
 	
-	function resetTimer() {
-		clearInterval(timer);
-		timer = setInterval(function(){ slideshow(); }, <?php echo $test['exposure']?>);
-	}
 
-	function nextSlide() {
-		if (current < images.length) {
-			if (timer != null)
-				resetTimer();
-			
+function showStartButton() {
+	if (timer != null)
+		clearInterval(timer);
+	
+	if (numPreloaded == images.length) {
+		$('#loading').empty();
+		var startLink = $('<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>');
+		$('#loading').append(startLink);
+		startLink.click(function(e) {
 			$('#slide').empty();
-	
-			var posx = slides[current].posx;
-			var posy = slides[current].posy;
-			var rotation = slides[current].rotation;
-			var flip = slides[current].flip;
-
-			if (flip != 0) {
-				// 1 - flip horizontally
-				// 2 - flip vertically
-				// 3 - double flip
-				
-				var scaleX = 1;
-				var scaleY = 1;
-				var filterMS = "none";
-				
-				if (flip == 1) {
-					scaleX = -1;
-					filterMS = "FlipH";
-				} else if (flip == 2) {
-					scaleY = -1;
-					filterMS = "FlipV";
-				} else if (flip == 3) {
-					scaleX = -1;
-					scaleY = -1;
-					filterMS = "FlipH FlipV";
-				} 
-
-				images[current].css({
-					"-webkit-transform": "scale(" + scaleX + ", " + scaleY + ")",
-					"-moz-transform": "scale(" + scaleX + ", " + scaleY + ")",
-					"transform": "scale(" + scaleX + ", " + scaleY + ")",
-					"filter": filterMS
-					//-ms-filter: "FlipH";
-					//-o-transform: scaleX(-1);
-				});
-				
-			} 
-			
-			if (rotation != 0) {
-				// rotation through css3
-				images[current].css({
-			        "-webkit-transform": "rotate(" + rotation + "deg)",
-			        "-moz-transform": "rotate(" + rotation + "deg)",
-			        //"-ms-transform: rotate(" + rotation + "deg)", 
-			        //"-o-transform: rotate(" + rotation + "deg)",
-			        "transform": "rotate(" + rotation + "deg)" /* For modern browsers(CSS3)  */
-			    });
-			}
-
-			
-			if (posx == null) {
-				// width dimensions
-				divWidth = $('#slide').width();
-				imgWidth = slides[current].width;
-				
-				// sets position in the center of the containing div
-				posx = (divWidth/2) - (imgWidth/2);
-			}
-	
-			if (posy == null) {
-				// height dimensions
-				divHeight = $('#slide').height();
-				imgHeight = slides[current].height;
-	
-				// sets position in the center of the containing div
-				posy = (divHeight/2) - (imgHeight/2);
-			}
-	
-			images[current].css({top: posy, left: posx});
-			
-			$('#slide').append(images[current++]);
-
-			// record start time
-			startTime = getTime();
-			return true;
-		} 
-
-		return false;
-	}
-
-
-	function displayResults() {
-		var numRight = 0;
-		var timeRight = 0;
-		var numWrong = 0;
-		var timeWrong = 0;
-		var numUnanswered = 0;
-
-		for (i=0; i<results.length; i++) {
-			if (results[i].actual == null) {
-				numUnanswered++;
-			} else {
-				if (results[i].actual == results[i].target) {
-					numRight++;
-					timeRight += results[i].time;
-				} else {
-					numWrong++;
-					timeWrong += results[i].time;
-				}
-			}
-		}
-
-		var summary = "Correctas: " + numRight + "<br/>";
-		summary += "Erroneas: " + numWrong + "<br/>";
-		summary += "No Contestadas: " + numUnanswered + "<br/>";
-		summary += "<hr/>";
-		summary += "Tiempo Promedio Correctas: " + Math.round(timeRight/numRight) + " ms.<br/>";
-		summary += "Tiempo Promedio Erroneas: " + Math.round(timeWrong/numWrong) + " ms.<br/>";
-		summary += "Tiempo Promedio Total: " + Math.round((timeRight + timeWrong) / (numRight + numWrong)) + " ms.<br/>";
-
-		$("#dialog-modal" ).dialog({
-			height: 275,
-			width: 400,
-			modal: true
+			doStart();
 		});
-		$("#dialog-modal-message").html("<p>" +summary+ "</p>");
-		$("#dialog-modal-saving").show();
+    } else {
+    	timer = setInterval(function(){ showStartButton(); }, 200);
+    }
+}
 
-		// saves using ajax
-		var request = $.ajax({
-			url: "/psytest/index.php/tests/save",
-			type: "POST",
-			data: {id : "x"}
-		});
+$(document).ready(function() {
+	// preload images
+	preload(slides);
 
-		request.done(function(msg) {
-			console.log(msg);
-			$("#dialog-modal-saving").hide();
-		});
-	}
-
-	//////////
-	var firstname = $( "#firstname" ),
-	lastname = $( "#lastname" ),
-	age = $( "#age" ),
-	docid = $( "#docid" ),
-	allFields = $( [] ).add( firstname ).add( lastname ).add( age ).add(docid),
-	tips = $( ".validateTips" );
-
+	// Opens test taker dialog
+	//$("#dialog-form").dialog("open");
 	
+	showStartButton();
+	
+	// Handles clic on emotion buttons 
+	$('.emotion-button').click(function(e) {
+	    e.preventDefault();
 		
-	$("#dialog-form").dialog({
-		autoOpen: false,
-		height: 400,
-		width: 350,
-		modal: true,
-		position: { my: "center", at: "center", of: '#slide' },
-		buttons: {
-			"Continuar": function() {
-				var bValid = true;
-				allFields.removeClass( "ui-state-error" );
-				bValid = bValid && checkLength( firstname, "firstname", 3, 16 );
-				bValid = bValid && checkLength( lastname, "lastname", 3, 16 );
-				bValid = bValid && checkLength( age, "age", 1, 3 );
-				bValid = bValid && checkLength( docid, "docid", 1, 16 );
-				//bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-				// From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-				//bValid = bValid && checkRegexp( email, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, "eg. ui@jquery.com" );
-				//bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
-				
-				if ( bValid ) {
-					// save data in variables
-					testData.firstname = firstname.val();
-					testData.lastname = lastname.val();
-					testData.age = age.val();
-					testData.docid = docid.val();
-
-					// enable close button
-					$("#dialog-form").dialog( { 
-						beforeClose: function(event, ui) { return true; } });
-					$("#dialog-form").dialog("close");
-				}
-			},
-			/*Cancel: function() {
-				$( this ).dialog( "close" );
-			}*/
-		},
-		open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-		close: function() {
-			allFields.val("").removeClass( "ui-state-error" );
-		},
-		beforeClose: function(event, ui) { return false; }
+	    pickEmotion(slides[current-1].emotion, $(this).attr('rel'));
 	});
-	//$("#dialog-form").dialog( "open" );
-	///////////
-	
-	
-	$(document).ready(function() {
-		// preload images
-		preload(slides);
-
-		$('#btnStart').click(function(e) {
-			if (numPreloaded == images.length) {
-				doStart();
-				$('#slide').empty();
-		    }
-		});
-
-		$('.emotion-button').click(function(e) {
-		    e.preventDefault();
-
-		    // record end time
-		    endTime = getTime();
-			curTime = null;
-			
-		    if (endTime > startTime) {
-				curTime = endTime - startTime;
-			}
-
-		    if (current <= images.length) {
-		    	results[current-1] = {
-					    target: slides[current-1].emotion, 
-					    actual: $(this).attr('rel'),
-					    time: curTime
-				    };
-
-				if (current < images.length) {
-		    		nextSlide();
-				} else {
-					stopTimer()
-					console.log(results);
-					displayResults();
-				}
-		    }
-		});
-	});
+});
 </script>
-
-
-
