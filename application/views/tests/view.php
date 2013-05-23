@@ -30,7 +30,6 @@
 		<div id="loading" style="position:absolute; top:50%; height:40px; margin-top:-20px; text-align:center; width:100%">
 			<img src="/psytest/resources/img/ajax-loader.gif"/> 
 			<br/>Espere mientras se carga la prueba...<br/>
-			<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>
 		</div>
 	</div>
 	<div id="buttons" style="text-align:center">
@@ -51,21 +50,22 @@
 <script>
 // Loads data of the test
 testData.testId = <?php echo $test['id'] ?>; 
+testData.disturbance = <?php echo $test['disturbance'] ?>;
 exposureTime = <?php echo $test['exposure']?>;
 
 // Loads information of the slides of the test
 slides = [<?php 
 		foreach ($slides as $slide) {
 			echo "{";
-			echo "path: '/psytest/resources/img/" . $slide['path'] . "', ";
+			echo "path: '/psytest/resources/img/set1/" . $slide['path'] . "', ";
 			echo "emotion: '" . $slide['emotion'] . "', ";
 			echo "posx: " . ((empty($slide['posx']))? "null" : $slide['posx']) . ", ";
 			echo "posy: " . ((empty($slide['posy']))? "null" : $slide['posy']) . ", ";
 			echo "color: " . $slide['color'] . ", ";
 			echo "rotation: " . $slide['rotation'] . ", ";
 			echo "flip: " . $slide['flip'] . ", ";
-			echo "width: 93, ";
-			echo "height: 124";
+			echo "width: " . $slide['width'] . ", ";
+			echo "height: " . $slide['height'];
 			echo "}, ";
 		}
 		?>];

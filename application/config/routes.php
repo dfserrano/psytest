@@ -41,13 +41,15 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
+$route['faces/index'] = 'faces/index';
 $route['faces/(:any)'] = 'faces/view/$1';
 $route['faces'] = 'faces';
-$route['tests/save'] = 'tests/save';
+$route['tests/add'] = 'tests/add';
+$route['tests/index'] = 'tests/index';
 $route['tests/(:any)'] = 'tests/view/$1';
 $route['tests'] = 'tests';
-$route['(:any)'] = 'pages/view/$1';
-$route['default_controller'] = 'pages/view';
+$route['(:any)'] = 'home/view/$1';
+$route['default_controller'] = 'home/view';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

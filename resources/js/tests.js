@@ -34,7 +34,6 @@ var timer;
 function doStart() {
 	// start timer
 	timer = setInterval(function(){ start(); }, 1000);
-	console.log("Start timer " + timer);
 }
 
 /**
@@ -63,7 +62,6 @@ function getTime() {
  * Stops timer
  */
 function stopTimer() {
-	console.log("Stop timer " + timer);
 	clearInterval(timer);
 	timer = null;
 
@@ -75,10 +73,8 @@ function stopTimer() {
  * Resets timer with the same exposure time
  */
 function resetTimer() {
-	console.log("From reset timer ");
 	stopTimer();
 	timer = setInterval(function(){ slideshow(); }, exposureTime);
-	console.log("Start reset timer " + timer);
 }
 
 /**
@@ -105,9 +101,9 @@ function advanceAndRecord(targetPick, actualPick, curTime) {
 		if (current < images.length) {
     		nextSlide();
 		} else {
-			stopTimer()
-			console.log(results);
+			stopTimer();
 			displayResults();
+			randomBackgroundColor($('body'), '#FFFFFF');
 			$('#slide').empty();
 		}
     }
@@ -140,6 +136,10 @@ function nextSlide() {
 
 		translate(images[current], $('#slide'), posx, posy, slides[current].width, slides[current].height);
 		
+		if (testData.disturbance == 1) {
+			body = $('body');
+			randomBackgroundColor(body, '');
+		}
 		
 		$('#slide').append(images[current++]);
 
@@ -161,12 +161,12 @@ function pickEmotion(targetEmotion, actualEmotion) {
 	// record end time
     endTime = getTime();
 	curTime = null;
-	
+	console.log("start " + startTime + " end " + endTime);
     if (endTime > startTime) {
 		curTime = endTime - startTime;
 	}
 
-    advanceAndRecord(targetEmotion, actualEmotion);
+    advanceAndRecord(targetEmotion, actualEmotion, curTime);
 }
 
 /**
@@ -179,7 +179,7 @@ function displayResults() {
 	var timeWrong = 0;
 	var numUnanswered = 0;
 	var total = 0;
-	
+	console.log(results);
 	for (i=0; i<results.length; i++) {
 		if (results[i].actual == null) {
 			numUnanswered++;
@@ -221,7 +221,6 @@ function displayResults() {
 	});
 
 	request.done(function(msg) {
-		console.log(msg);
 		$("#dialog-modal-saving").hide();
 	});
 }

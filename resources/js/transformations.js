@@ -90,3 +90,10 @@ function flip(o, direction) {
 	} 
 
 }
+
+function randomBackgroundColor(o, color) {
+	if (color.length <= 1) 
+		color = '#'+Math.floor(Math.random()*16777215).toString(16);
+	
+	o.css('background-color', color);
+}
