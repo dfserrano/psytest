@@ -37,12 +37,15 @@ function translate(o, frame, x, y, oTrueWidth=0, oTrueHeight=0) {
  */
 function rotate(o, degrees) {
 	// rotation through css3
+	var prevStateWebkit = ((o.css('-webkit-transform') != 'none')? o.css('-webkit-transform') : '');
+	var prevStateMoz = ((o.css('-moz-transform') != 'none')? o.css('-moz-transform') : '');
+	var prevStateCss3 = ((o.css('transform') != 'none')? o.css('transform') : '');
 	o.css({
-        "-webkit-transform": "rotate(" + degrees + "deg)",
-        "-moz-transform": "rotate(" + degrees + "deg)",
+        "-webkit-transform":  "rotate(" + degrees + "deg) " + prevStateWebkit,
+        "-moz-transform": "rotate(" + degrees + "deg) " + prevStateMoz,
         // "-ms-transform: rotate(" + degrees + "deg)",
         // "-o-transform: rotate(" + degrees + "deg)",
-        "transform": "rotate(" + degrees + "deg)" /*
+        "transform": "rotate(" + degrees + "deg) " + prevStateCss3 /*
 													 * For modern
 													 * browsers(CSS3)
 													 */
@@ -78,10 +81,13 @@ function flip(o, direction) {
 			filterMS = "FlipH FlipV";
 		} 
 
+		var prevStateWebkit = ((o.css('-webkit-transform') != 'none')? o.css('-webkit-transform') : '');
+		var prevStateMoz = ((o.css('-moz-transform') != 'none')? o.css('-moz-transform') : '');
+		var prevStateCss3 = ((o.css('transform') != 'none')? o.css('transform') : '');
 		o.css({
-			"-webkit-transform": "scale(" + scaleX + ", " + scaleY + ")",
-			"-moz-transform": "scale(" + scaleX + ", " + scaleY + ")",
-			"transform": "scale(" + scaleX + ", " + scaleY + ")",
+			"-webkit-transform": "scale(" + scaleX + ", " + scaleY + ") " + prevStateWebkit,
+			"-moz-transform": "scale(" + scaleX + ", " + scaleY + ") " + prevStateMoz,
+			"transform": "scale(" + scaleX + ", " + scaleY + ") " + prevStateCss3,
 			"filter": filterMS
 			// -ms-filter: "FlipH";
 			// -o-transform: scaleX(-1);

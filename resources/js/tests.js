@@ -142,7 +142,7 @@ function nextSlide() {
 		}
 		
 		$('#slide').append(images[current++]);
-
+		
 		// record start time
 		startTime = getTime();
 		return true;
