@@ -2,13 +2,13 @@
 <?php echo form_error('emotion', '<span class="error">', '</span>'); ?>
 <?php echo form_error('userfile', '<span class="error">', '</span>'); ?>
 
-<div id="main" style="text-align: center; height:100%; text-align:left; padding:15px">
+<div id="main">
 	<div>
 		<a href="#" id="btn-add">Agregar cara</a><br/><br/>
 	</div>
 	<div id="dialog-form" title="Nueva cara">
-		<div id="upload" style="text-align:left">
-		<p class="validateTips">Todos los datos son requeridos.</p>
+		<div id="upload">
+			<p class="validateTips">Todos los datos son requeridos.</p>
 			<?php 
 			$attributes = array('id' => 'create-form', 'name' => 'create-form');
 			echo form_open_multipart('faces', $attributes);
@@ -35,18 +35,18 @@
 		</div>
 	</div>
 	
-	<div id="gallery" style="text-align:left">
+	<div id="gallery">
 	<?php 
 	$i = 0;
 	$max_per_row = 5;
 	
 	if (sizeof($pictures) > 0) :
 		foreach ($pictures as $picture): ?>
-			<div id="pic-item" style="display:inline-block; border:gray solid 1px; padding:3px; ">
-				<div id="pic-img" style="width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px; height:<?php echo Faces_model::$MAX_THUMB_HEIGHT?>px; overflow:hidden; margin-left:auto; margin-right:auto">
-					<img src="/psytest/resources/img/set1/thumbs/<?php echo $picture['path']?>" />
+			<div class="pic-item">
+				<div class="pic-img" style="width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px; height:<?php echo Faces_model::$MAX_THUMB_HEIGHT?>px;">
+					<img src="<?php echo base_url() . 'resources/img/set1/thumbs/' . $picture['path']?>" />
 				</div>
-				<div id="pic-info" style="text-align: center; font-size: 8pt; width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px; overflow:hidden; margin-left:auto;">
+				<div class="pic-info" style="width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px;">
 					<?php echo $picture['code'] . '<br/>' . ucfirst($picture['emotion'])?>
 				</div>
 			</div>

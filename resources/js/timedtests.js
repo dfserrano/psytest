@@ -10,9 +10,6 @@ var results = new Array();
 // Test taker data and general info
 var testData = new Array();
 
-// Time of exposure
-var exposureTime = 0;
-
 // Used to get time in milliseconds
 var date = null;
 var startTime = 0;
@@ -29,11 +26,14 @@ var timer;
 
 /**
  * Waits one second and start the presentation
+ * 
  * @returns
  */
 function doStart() {
 	// start timer
-	timer = setInterval(function(){ start(); }, 1000);
+	timer = setInterval(function() {
+		start();
+	}, 1000);
 }
 
 /**
@@ -41,16 +41,17 @@ function doStart() {
  */
 function start() {
 	stopTimer(timer);
-	
+
 	// set first slide
 	nextSlide();
-			
+
 	// start timer
-	resetTimer();
+	//resetTimer(1000);
 }
 
 /**
  * Return time in milliseconds
+ * 
  * @returns time in milliseconds
  */
 function getTime() {
@@ -65,63 +66,75 @@ function stopTimer() {
 	clearInterval(timer);
 	timer = null;
 
-	/*for (var i = 1; i < 99999; i++)
-        window.clearInterval(i);*/
+	/*
+	 * for (var i = 1; i < 99999; i++) window.clearInterval(i);
+	 */
 }
 
 /**
  * Resets timer with the same exposure time
  */
-function resetTimer() {
+function resetTimer(time) {
 	stopTimer();
-	timer = setInterval(function(){ cleanSlideshow(); }, exposureTime);
+	timer = setInterval(function() {
+		cleanSlideshow();
+	}, time);
 }
 
 /**
  * When time is over, remove the picture in the slideshow
  */
 function cleanSlideshow() {
+	stopTimer(); 
+	
+	// record start time
+	startTime = getTime();
+	
+	// show button
+	$('#buttons').show();
+	
+	
 	$('#slide').empty();
-	//advanceAndRecord(slides[current-1].emotion, null, null);
+	// advanceAndRecord(slides[current-1].emotion, null, null);
 }
 
 /**
  * Records result and calls next slide
- * @param targetPick
- * @param actualPick
- * @param curTime
+ * 
+ * @param targetPick target time
+ * @param actualPick actual time
  */
-function advanceAndRecord(targetPick, actualPick, curTime) {
+function advanceAndRecord(targetPick, actualPick) {
 	if (current <= images.length) {
-		console.log("slides " + (current-1) + " = " + slides[current-1].code);
-    	results[current-1] = {
-			    code: slides[current-1].code,
-    			target: targetPick, 
-			    actual: actualPick,
-			    time: curTime
-		    };
+		console.log(actualPick);
+		results[current - 1] = {
+			code : slides[current - 1].code,
+			target : targetPick,
+			actual : actualPick
+		};
 
 		if (current < images.length) {
-    		nextSlide();
+			nextSlide();
 		} else {
 			stopTimer();
 			displayResults();
 			randomBackgroundColor($('body'), '#FFFFFF');
 			$('#slide').empty();
 		}
-    }
+	}
 
 }
 
 /**
  * Changes picture in the slideshow
+ * 
  * @returns true if it advanced to the next slide
  */
 function nextSlide() {
 	if (current < images.length) {
-		if (timer != null)
-			resetTimer();
 		
+		resetTimer(slides[current].exposure);
+
 		$('#slide').empty();
 
 		var posx = slides[current].posx;
@@ -130,105 +143,105 @@ function nextSlide() {
 		var flipDirection = slides[current].flip;
 
 		if (flipDirection != 0) {
-			flip(images[current], flipDirection);				
-		} 
-		
+			flip(images[current], flipDirection);
+		}
+
 		if (rotationDegrees != 0) {
 			rotate(images[current], rotationDegrees);
 		}
 
-		translate(images[current], $('#slide'), posx, posy, slides[current].width, slides[current].height);
-		
+		translate(images[current], $('#slide'), posx, posy,
+				slides[current].width, slides[current].height);
+
 		if (testData.disturbance == 1) {
 			body = $('body');
 			randomBackgroundColor(body, '');
 		}
-		
+
 		$('#slide').append(images[current++]);
 		
-		// record start time
-		startTime = getTime();
+		// hide button
+		$('#buttons').hide();
+
 		return true;
-	} 
+	}
 
 	return false;
 }
 
-
 /**
- * Picks emotion and save the result
- * @param targetEmotion Target
- * @param actualEmotion Actual
+ * Picks and save the result
+ * 
+ * @param targetTime
+ *            Target
  */
-function pickEmotion(targetEmotion, actualEmotion) {
+function pick(targetTime) {
 	// record end time
-    endTime = getTime();
+	endTime = getTime();
+
 	curTime = null;
-	
-    if (endTime > startTime) {
+
+	if (endTime > startTime) {
 		curTime = endTime - startTime;
 	}
 
-    advanceAndRecord(targetEmotion, actualEmotion, curTime);
+	advanceAndRecord(targetTime, curTime);
 }
 
 /**
  * Opens modal window with results of the test
  */
 function displayResults() {
-	var numRight = 0;
-	var timeRight = 0;
-	var numWrong = 0;
-	var timeWrong = 0;
-	var numUnanswered = 0;
+	var overTime = 0;
+	var overNum = 0;
+	var underTime = 0;
+	var underNum = 0;
 	var total = 0;
-	console.log(results);
-	for (i=0; i<results.length; i++) {
-		if (results[i].actual == null) {
-			numUnanswered++;
+
+	for (i = 0; i < results.length; i++) {
+		if (results[i].actual < results[i].target) {
+			underTime += results[i].target - results[i].actual;
+			underNum++;
 		} else {
-			if (results[i].actual == results[i].target) {
-				numRight++;
-				timeRight += results[i].time;
-			} else {
-				numWrong++;
-				timeWrong += results[i].time;
-			}
+			overTime += results[i].actual - results[i].target;
+			overNum++;
 		}
 	}
-	
-	if (numRight + numWrong != 0)
-		total = (timeRight + timeWrong) / (numRight + numWrong); 
 
-	var summary = "Correctas: " + numRight + "<br/>";
-	summary += "Erroneas: " + numWrong + "<br/>";
-	//summary += "No Contestadas: " + numUnanswered + "<br/>";
-	summary += "<hr/>";
-	summary += "Tiempo Promedio Correctas: " + ((numRight != 0)? Math.round(timeRight/numRight) : 0) + " ms.<br/>";
-	summary += "Tiempo Promedio Erroneas: " + ((numWrong != 0)? Math.round(timeWrong/numWrong) : 0) + " ms.<br/>";
-	summary += "Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
+	if (overNum + underNum != 0)
+		total = (overTime + underTime) / (overNum + underNum);
 
-	$("#dialog-modal" ).dialog({
-		height: 275,
-		width: 400,
-		modal: true,
-		close: function() {
+	summary = "Tiempo Promedio Sobreestimadas: "
+			+ ((overNum != 0) ? Math.round(overTime / overNum) : 0)
+			+ " ms.<br/>";
+	summary += "Tiempo Promedio Subestimadas: "
+			+ ((underNum != 0) ? Math.round(underTime / underNum) : 0)
+			+ " ms.<br/>";
+	summary += "Diferencia Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
+
+	$("#dialog-modal").dialog({
+		height : 275,
+		width : 400,
+		modal : true,
+		close : function() {
 			window.location.replace("results/" + testData.testId);
 		}
 	});
-	$("#dialog-modal-message").html("<p>" +summary+ "</p>");
+	$("#dialog-modal-message").html("<p>" + summary + "</p>");
 	$("#dialog-modal-saving").show();
 
 	// saves using ajax
 	var request = $.ajax({
-		url: urlSave,
-		type: "POST",
-		data: {'testid' : testData.testId,
+		url : urlSave,
+		type : "POST",
+		data : {
+			'testid' : testData.testId,
 			'firstname' : firstname.val(),
 			'lastname' : lastname.val(),
 			'age' : age.val(),
 			'docid' : docid.val(),
-			'results' : JSON.stringify(results)}
+			'results' : JSON.stringify(results)
+		}
 	});
 
 	request.done(function(msg) {
@@ -236,7 +249,8 @@ function displayResults() {
 			$("#dialog-modal-saving").hide();
 		} else {
 			$("#dialog-modal-saving").empty();
-			$("#dialog-modal-saving").text('Hubo un error y no se pudo guardar');
+			$("#dialog-modal-saving")
+					.text('Hubo un error y no se pudo guardar');
 		}
 	});
 }

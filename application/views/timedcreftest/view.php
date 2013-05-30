@@ -2,7 +2,7 @@
 <div id="dialog-modal" title="Resumen">
 	<div id="dialog-modal-message"></div>
 	<div id="dialog-modal-saving" style="display: none">
-		<img src="/psytest/resources/img/ajax-loader.gif" style="float:left"/> 
+		<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>" style="float:left"/> 
 		<p>&nbsp;Guardando...</p>
 	</div>
 </div>
@@ -27,38 +27,45 @@
 
 <div id="main" style="text-align: center">
 	<div id="slide" style="position:relative; height:500px; width:700px; display:inline-block; text-align:left">
-		<div id="loading" style="position:absolute; top:50%; height:40px; margin-top:-20px; text-align:center; width:100%">
-			<img src="/psytest/resources/img/ajax-loader.gif"/> 
+		<div id="instructions" style="text-align:center">
+			<h2>Instrucciones</h2>
+			<br/>
+			A continuaci&oacute;n usted vera una serie de im&aacute;genes.  Cada una de las im&aacute;genes
+			se presentar&aacute; durante un tiempo determinado.  Usted deber&aacute; calcular el tiempo 
+			en el que la im&aacute;gen estuvo visible y una vez esta se haga invisible,
+			dar clic en el bot&oacute;n AQU&Iacute; cuando estime que el mismo tiempo en el que la imagen estuvo 
+			visible ha transcurrido.
+			<br/><br/>
+		</div>
+		<div id="loading" style="text-align:center; width:100%">
+			<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>"/> 
 			<br/>Espere mientras se carga la prueba...<br/>
 		</div>
 	</div>
 	<div id="buttons" style="text-align:center">
-		<a href="#" rel="alegria" class="emotion-button">Alegr&iacute;a</a>
-		<a href="#" rel="asco" class="emotion-button">Asco</a>
-		<a href="#" rel="ira" class="emotion-button">Ira</a>
-		<a href="#" rel="miedo" class="emotion-button">Miedo</a>
-		<br/>
-		<a href="#" rel="sorpresa" class="emotion-button">Sorpresa</a>
-		<a href="#" rel="tristeza" class="emotion-button">Tristeza</a>
-		<a href="#" rel="neutra" class="emotion-button">Neutra</a>
+		<a href="#" class="continue-button">AQU&Iacute;</a>
 	</div>
 </div>
 
-<script src="/psytest/resources/js/tests.js"></script>
-<script src="/psytest/resources/js/testsDialog.js"></script>
+<script src="<?php echo base_url() . 'resources/js/timedtests.js'?>"></script>
+<script src="<?php echo base_url() . 'resources/js/testsDialog.js'?>"></script>
 
 <script>
+// url for ajax save
+urlSave = "<?php echo base_url() . 'index.php/timedcreftest/save'?>";
+	
 // Loads data of the test
 testData.testId = <?php echo $test['id'] ?>; 
 testData.disturbance = <?php echo $test['disturbance'] ?>;
-exposureTime = <?php echo $test['exposure']?>;
 
 // Loads information of the slides of the test
 slides = [<?php 
 		foreach ($slides as $slide) {
 			echo "{";
-			echo "path: '/psytest/resources/img/set1/" . $slide['path'] . "', ";
+			echo "path: '" . base_url() . "resources/img/set1/" . $slide['path'] . "', ";
+			echo "code: '" . $slide['code'] . "', ";
 			echo "emotion: '" . $slide['emotion'] . "', ";
+			echo "exposure: '" . $slide['exposure'] . "', ";
 			echo "posx: " . ((empty($slide['posx']))? "null" : $slide['posx']) . ", ";
 			echo "posy: " . ((empty($slide['posy']))? "null" : $slide['posy']) . ", ";
 			echo "color: " . $slide['color'] . ", ";
@@ -80,6 +87,7 @@ function showStartButton() {
 		var startLink = $('<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>');
 		$('#loading').append(startLink);
 		startLink.click(function(e) {
+			e.preventDefault();
 			$('#slide').empty();
 			doStart();
 		});
@@ -98,10 +106,14 @@ $(document).ready(function() {
 	showStartButton();
 	
 	// Handles clic on emotion buttons 
-	$('.emotion-button').click(function(e) {
-	    e.preventDefault();
-		
-	    pickEmotion(slides[current-1].emotion, $(this).attr('rel'));
+	$('.continue-button').click(function(e) {
+		if (current > 0) {
+		    e.preventDefault();
+			
+		    pick(slides[current-1].exposure);
+		} else {
+			alert("El botón solo funciona cuando inicia la prueba");
+		}
 	});
 });
 </script>

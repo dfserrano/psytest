@@ -8,9 +8,12 @@
 function preload(arrayOfImages) {
     $(arrayOfImages).each(function(i){
     	images[i] = $('<img/>', {'src': this.path, 'id': 'img'+i});
-    	images[i].css({position:'relative'});
+    	images[i].css({position:'relative', height: '5cm'});
 
     	images[i].load(function () {
+    		slides[i].width = this.width;
+    		slides[i].height = this.height;
+    		
     		if (numPreloaded != undefined) 
     				numPreloaded++;
 		});

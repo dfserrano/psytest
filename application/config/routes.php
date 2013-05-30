@@ -41,13 +41,27 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
+// Faces
 $route['faces/index'] = 'faces/index';
 $route['faces/(:any)'] = 'faces/view/$1';
 $route['faces'] = 'faces';
-$route['tests/add'] = 'tests/add';
-$route['tests/index'] = 'tests/index';
-$route['tests/(:any)'] = 'tests/view/$1';
-$route['tests'] = 'tests';
+
+// CREF test
+$route['creftest/add'] = 'creftest/add';
+$route['creftest/save'] = 'creftest/save';
+$route['creftest/index'] = 'creftest/index';
+$route['creftest/results/(:any)'] = 'creftest/results/$1';
+$route['creftest/(:any)'] = 'creftest/view/$1';
+$route['creftest'] = 'creftest';
+
+// timed CREF test
+$route['timedcreftest/add'] = 'timedcreftest/add';
+$route['timedcreftest/save'] = 'timedcreftest/save';
+$route['timedcreftest/index'] = 'timedcreftest/index';
+$route['timedcreftest/results/(:any)'] = 'timedcreftest/results/$1';
+$route['timedcreftest/(:any)'] = 'timedcreftest/view/$1';
+$route['timedcreftest'] = 'timedcreftest';
+
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 
