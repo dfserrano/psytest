@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 31-05-2013 a las 12:06:23
+-- Tiempo de generación: 12-06-2013 a las 18:32:33
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -92,6 +92,37 @@ INSERT INTO `slide_cref` VALUES (24, 4, 7, 9, NULL, NULL, 0, 0, 0);
 -- --------------------------------------------------------
 
 -- 
+-- Estructura de tabla para la tabla `slide_memcref`
+-- 
+
+CREATE TABLE `slide_memcref` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `type` smallint(1) unsigned NOT NULL default '1' COMMENT '1-before, 2-after',
+  `order` smallint(2) unsigned NOT NULL default '0',
+  `suborder` smallint(2) unsigned NOT NULL default '0',
+  `test_fk` int(10) unsigned NOT NULL,
+  `picture_fk` int(10) unsigned NOT NULL,
+  `rotation` smallint(3) NOT NULL default '0',
+  `flip` tinyint(1) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=89 ;
+
+-- 
+-- Volcar la base de datos para la tabla `slide_memcref`
+-- 
+
+INSERT INTO `slide_memcref` VALUES (81, 1, 0, 0, 11, 1, 0, 0);
+INSERT INTO `slide_memcref` VALUES (82, 1, 0, 1, 11, 2, 0, 0);
+INSERT INTO `slide_memcref` VALUES (83, 2, 0, 2, 11, 1, 0, 0);
+INSERT INTO `slide_memcref` VALUES (84, 2, 0, 3, 11, 9, 0, 0);
+INSERT INTO `slide_memcref` VALUES (85, 1, 1, 4, 11, 2, 0, 0);
+INSERT INTO `slide_memcref` VALUES (86, 1, 1, 5, 11, 5, 0, 0);
+INSERT INTO `slide_memcref` VALUES (87, 2, 1, 6, 11, 5, 0, 0);
+INSERT INTO `slide_memcref` VALUES (88, 2, 1, 7, 11, 6, 0, 0);
+
+-- --------------------------------------------------------
+
+-- 
 -- Estructura de tabla para la tabla `slide_timedcref`
 -- 
 
@@ -145,6 +176,27 @@ INSERT INTO `test_cref` VALUES (7, 'CREF', '2013-05-29 12:53:45', 0, 4500);
 -- --------------------------------------------------------
 
 -- 
+-- Estructura de tabla para la tabla `test_memcref`
+-- 
+
+CREATE TABLE `test_memcref` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(25) collate utf8_spanish2_ci NOT NULL,
+  `date` datetime NOT NULL,
+  `disturbance` smallint(2) NOT NULL,
+  `exposure` int(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=12 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_memcref`
+-- 
+
+INSERT INTO `test_memcref` VALUES (11, 'Mem', '2013-06-12 09:57:11', 0, 1000);
+
+-- --------------------------------------------------------
+
+-- 
 -- Estructura de tabla para la tabla `test_result_cref`
 -- 
 
@@ -157,7 +209,7 @@ CREATE TABLE `test_result_cref` (
   `date` datetime NOT NULL,
   `docid` varchar(20) collate utf8_spanish2_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=13 ;
 
 -- 
 -- Volcar la base de datos para la tabla `test_result_cref`
@@ -169,6 +221,7 @@ INSERT INTO `test_result_cref` VALUES (8, 6, '', '', 0, '2013-05-29 09:00:44', '
 INSERT INTO `test_result_cref` VALUES (9, 6, '', '', 0, '2013-05-29 09:01:28', '');
 INSERT INTO `test_result_cref` VALUES (10, 6, '', '', 0, '2013-05-29 12:35:02', '');
 INSERT INTO `test_result_cref` VALUES (11, 7, '', '', 0, '2013-05-29 12:58:18', '');
+INSERT INTO `test_result_cref` VALUES (12, 7, '', '', 0, '2013-05-31 12:27:42', '');
 
 -- --------------------------------------------------------
 
@@ -184,7 +237,7 @@ CREATE TABLE `test_result_item_cref` (
   `target` varchar(20) collate utf8_spanish2_ci NOT NULL,
   `time` int(11) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=37 ;
 
 -- 
 -- Volcar la base de datos para la tabla `test_result_item_cref`
@@ -220,6 +273,36 @@ INSERT INTO `test_result_item_cref` VALUES (28, 11, 'HMNG13', 'sorpresa', 'miedo
 INSERT INTO `test_result_item_cref` VALUES (29, 11, 'MN14', 'neutra', 'neutra', 1412);
 INSERT INTO `test_result_item_cref` VALUES (30, 11, 'HSP22', 'miedo', 'sorpresa', 2158);
 INSERT INTO `test_result_item_cref` VALUES (31, 11, 'MRNG21', 'ira', 'ira', 2278);
+INSERT INTO `test_result_item_cref` VALUES (32, 12, 'MFP12', 'alegria', 'alegria', 1412);
+INSERT INTO `test_result_item_cref` VALUES (33, 12, 'HMNG13', 'asco', 'miedo', 3364);
+INSERT INTO `test_result_item_cref` VALUES (34, 12, 'MN14', 'neutra', 'neutra', 1742);
+INSERT INTO `test_result_item_cref` VALUES (35, 12, 'HSP22', 'sorpresa', 'sorpresa', 5534);
+INSERT INTO `test_result_item_cref` VALUES (36, 12, 'MRNG21', 'ira', 'ira', 1262);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `test_result_item_memcref`
+-- 
+
+CREATE TABLE `test_result_item_memcref` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `test_result_fk` int(11) NOT NULL,
+  `num` smallint(2) unsigned NOT NULL default '0',
+  `pic_id` int(11) unsigned NOT NULL,
+  `actual_time` int(11) unsigned NOT NULL,
+  `success` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=5 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_result_item_memcref`
+-- 
+
+INSERT INTO `test_result_item_memcref` VALUES (1, 1, 1, 1, 1444, 1);
+INSERT INTO `test_result_item_memcref` VALUES (2, 1, 2, 5, 3197, 1);
+INSERT INTO `test_result_item_memcref` VALUES (3, 2, 1, 1, 444, 1);
+INSERT INTO `test_result_item_memcref` VALUES (4, 2, 2, 5, 445, 1);
 
 -- --------------------------------------------------------
 
@@ -234,7 +317,7 @@ CREATE TABLE `test_result_item_timedcref` (
   `actual_time` int(11) unsigned NOT NULL,
   `target_time` int(11) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=16 ;
 
 -- 
 -- Volcar la base de datos para la tabla `test_result_item_timedcref`
@@ -252,6 +335,33 @@ INSERT INTO `test_result_item_timedcref` VALUES (9, 14, 'HSP22', 6430, 5000);
 INSERT INTO `test_result_item_timedcref` VALUES (10, 15, 'MFP12', 1558, 1000);
 INSERT INTO `test_result_item_timedcref` VALUES (11, 15, 'HSP17', 3531, 3000);
 INSERT INTO `test_result_item_timedcref` VALUES (12, 15, 'HSP22', 5526, 5000);
+INSERT INTO `test_result_item_timedcref` VALUES (13, 16, 'MFP12', 2228, 1000);
+INSERT INTO `test_result_item_timedcref` VALUES (14, 16, 'HSP17', 3079, 3000);
+INSERT INTO `test_result_item_timedcref` VALUES (15, 16, 'HSP22', 5224, 5000);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `test_result_memcref`
+-- 
+
+CREATE TABLE `test_result_memcref` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `test_fk` int(10) unsigned NOT NULL,
+  `firstname` varchar(80) collate utf8_spanish2_ci NOT NULL,
+  `lastname` varchar(80) collate utf8_spanish2_ci NOT NULL,
+  `age` tinyint(2) unsigned NOT NULL,
+  `date` datetime NOT NULL,
+  `docid` varchar(20) collate utf8_spanish2_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_result_memcref`
+-- 
+
+INSERT INTO `test_result_memcref` VALUES (1, 11, '0', '0', 0, '2013-06-12 09:57:23', '0');
+INSERT INTO `test_result_memcref` VALUES (2, 11, '0', '0', 0, '2013-06-12 09:57:50', '0');
 
 -- --------------------------------------------------------
 
@@ -268,7 +378,7 @@ CREATE TABLE `test_result_timedcref` (
   `date` datetime NOT NULL,
   `docid` varchar(20) collate utf8_spanish2_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=18 ;
 
 -- 
 -- Volcar la base de datos para la tabla `test_result_timedcref`
@@ -278,6 +388,7 @@ INSERT INTO `test_result_timedcref` VALUES (12, 1, '', '', 0, '2013-05-29 18:42:
 INSERT INTO `test_result_timedcref` VALUES (13, 1, '', '', 0, '2013-05-29 18:43:41', '');
 INSERT INTO `test_result_timedcref` VALUES (14, 1, '', '', 0, '2013-05-29 18:54:39', '');
 INSERT INTO `test_result_timedcref` VALUES (15, 1, '', '', 0, '2013-05-29 19:02:16', '');
+INSERT INTO `test_result_timedcref` VALUES (16, 1, '', '', 0, '2013-05-31 12:26:18', '');
 
 -- --------------------------------------------------------
 

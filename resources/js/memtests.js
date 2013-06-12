@@ -10,6 +10,9 @@ var results = new Array();
 // Test taker data and general info
 var testData = new Array();
 
+// Time of exposure
+var exposureTime = 0;
+
 // Used to get time in milliseconds
 var date = null;
 var startTime = 0;
@@ -42,11 +45,16 @@ function doStart() {
 function start() {
 	stopTimer(timer);
 
+	// adjust top margin of slide
+	$('#slide').css({
+		marginTop : '120px'
+	})
+
 	// set first slide
 	nextSlide();
 
 	// start timer
-	//resetTimer(1000);
+	resetTimer();
 }
 
 /**
@@ -74,44 +82,48 @@ function stopTimer() {
 /**
  * Resets timer with the same exposure time
  */
-function resetTimer(time) {
+function resetTimer() {
 	stopTimer();
 	timer = setInterval(function() {
-		cleanSlideshow();
-	}, time);
+		showOptions();
+	}, exposureTime);
 }
 
 /**
  * When time is over, remove the picture in the slideshow
  */
-function cleanSlideshow() {
-	stopTimer(); 
-	
+function showOptions() {
+	stopTimer();
+
+	$('#slide').empty();
+
 	// record start time
 	startTime = getTime();
-	
-	// show button
-	$('#buttons').show();
-	
-	
-	$('#slide').empty();
-	// advanceAndRecord(slides[current-1].emotion, null, null);
+
+	showReelOfPictures();
 }
 
 /**
  * Records result and calls next slide
  * 
- * @param targetPick target time
- * @param actualPick actual time
+ * @param picId
+ * @param picCode
+ * @param success
+ * @param curTime
  */
-function advanceAndRecord(targetPick, actualPick) {
-	if (current <= images.length) {
-		results[current - 1] = {
-			code : slides[current - 1].code,
-			target : targetPick,
-			actual : actualPick
-		};
+function advanceAndRecord(picId, picCode, success, curTime) {
 
+	if (current <= images.length) {
+		resultItem = {
+			pic_id : picId,
+			code : picCode,
+			success : success,
+			time : curTime
+		};
+		results.push(resultItem);
+
+		console.log(results);
+		console.log(current + " < " + images.length);
 		if (current < images.length) {
 			nextSlide();
 		} else {
@@ -124,20 +136,12 @@ function advanceAndRecord(targetPick, actualPick) {
 
 }
 
-/**
- * Changes picture in the slideshow
- * 
- * @returns true if it advanced to the next slide
- */
-function nextSlide() {
-	if (current < images.length) {
-		
-		resetTimer(slides[current].exposure);
+function showReelOfPictures() {
+	var curType = slides[current].type;
 
-		$('#slide').empty();
+	$('#slide').empty();
 
-		var posx = slides[current].posx;
-		var posy = slides[current].posy;
+	while (slides[current] != undefined && slides[current].type == curType) {
 		var rotationDegrees = slides[current].rotation;
 		var flipDirection = slides[current].flip;
 
@@ -149,18 +153,50 @@ function nextSlide() {
 			rotate(images[current], rotationDegrees);
 		}
 
-		translate(images[current], $('#slide'), posx, posy,
-				slides[current].width, slides[current].height);
+		images[current].css({
+			'margin' : '10px'
+		});
 
 		if (testData.disturbance == 1) {
 			body = $('body');
 			randomBackgroundColor(body, '');
 		}
 
-		$('#slide').append(images[current++]);
-		
-		// hide button
-		$('#buttons').hide();
+		if (slides[current].type == 2) {
+			var actionLink = $('<a href="#" class="pic-button" rel="'
+					+ slides[current].pic_id + '::' + slides[current].code
+					+ '"></a>');
+			actionLink.append(images[current++]);
+			$('#slide').append(actionLink);
+		} else {
+			$('#slide').append(images[current++]);
+		}
+
+	}
+
+	// Handles clic on emotion buttons
+	$('.pic-button').click(function(e) {
+		e.preventDefault();
+		value = $(this).attr('rel');
+		mid = value.indexOf("::");
+
+		picId = value.substring(0, mid);
+		code = value.substring(mid + 2);
+
+		pick(picId, code);
+	});
+}
+
+/**
+ * Changes picture in the slideshow
+ * 
+ * @returns true if it advanced to the next slide
+ */
+function nextSlide() {
+	if (current < images.length) {
+		resetTimer();
+
+		showReelOfPictures();
 
 		return true;
 	}
@@ -169,54 +205,81 @@ function nextSlide() {
 }
 
 /**
- * Picks and save the result
- * 
- * @param targetTime
- *            Target
+ * Picks an image
  */
-function pick(targetTime) {
+function pick(picId, picCode) {
 	// record end time
 	endTime = getTime();
-
 	curTime = null;
 
 	if (endTime > startTime) {
 		curTime = endTime - startTime;
 	}
 
-	advanceAndRecord(targetTime, curTime);
+	success = false;
+
+	curType = slides[current - 1].type;
+
+	prevType = false;
+	examPick = current - 1;
+	while (examPick >= 0) {
+		if (slides[examPick].type == curType) {
+			if (prevType) {
+				break;
+			}
+
+			examPick--;
+			continue;
+		} else {
+			prevType = true;
+		}
+
+		if (prevType) {
+			if (slides[examPick--].pic_id == picId) {
+				success = true;
+				break;
+			}
+		}
+	}
+
+	advanceAndRecord(picId, picCode, success, curTime);
 }
 
 /**
  * Opens modal window with results of the test
  */
 function displayResults() {
-	var overTime = 0;
-	var overNum = 0;
-	var underTime = 0;
-	var underNum = 0;
+	var numRight = 0;
+	var timeRight = 0;
+	var numWrong = 0;
+	var timeWrong = 0;
+	var numUnanswered = 0;
 	var total = 0;
 
 	for (i = 0; i < results.length; i++) {
-		if (results[i].actual < results[i].target) {
-			underTime += results[i].target - results[i].actual;
-			underNum++;
+		if (results[i].success) {
+			numRight++;
+			timeRight += results[i].time;
 		} else {
-			overTime += results[i].actual - results[i].target;
-			overNum++;
+			numWrong++;
+			timeWrong += results[i].time;
 		}
 	}
 
-	if (overNum + underNum != 0)
-		total = (overTime + underTime) / (overNum + underNum);
+	if (numRight + numWrong != 0)
+		total = (timeRight + timeWrong) / (numRight + numWrong);
 
-	summary = "Tiempo Promedio Sobreestimadas: "
-			+ ((overNum != 0) ? Math.round(overTime / overNum) : 0)
+	var summary = "Correctas: " + numRight + "<br/>";
+	summary += "Erroneas: " + numWrong + "<br/>";
+	// summary += "No Contestadas: " + numUnanswered + "<br/>";
+	summary += "<hr/>";
+	summary += "Tiempo Promedio Correctas: "
+			+ ((numRight != 0) ? Math.round(timeRight / numRight) : 0)
 			+ " ms.<br/>";
-	summary += "Tiempo Promedio Subestimadas: "
-			+ ((underNum != 0) ? Math.round(underTime / underNum) : 0)
+	summary += "Tiempo Promedio Erroneas: "
+			+ ((numWrong != 0) ? Math.round(timeWrong / numWrong) : 0)
 			+ " ms.<br/>";
-	summary += "Diferencia Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
+	summary += "Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
 
 	$("#dialog-modal").dialog({
 		height : 275,
@@ -251,5 +314,6 @@ function displayResults() {
 			$("#dialog-modal-saving")
 					.text('Hubo un error y no se pudo guardar');
 		}
-	});*/
+	});
+
 }

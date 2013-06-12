@@ -32,7 +32,7 @@
 
 <div id="main">
 	<?php echo validation_errors(); ?>
-	<?php echo form_open_multipart('creftest/add') ?>
+	<?php echo form_open_multipart('memcreftest/add') ?>
 		<fieldset>
 			<label for="name">Nombre</label>
 			<input type="text" id="name" name="name" class="text ui-widget-content ui-corner-all slide-input" />
@@ -41,8 +41,8 @@
 			<select id="disturbance" name="disturbance" class="text ui-widget-content ui-corner-all slide-input">
 				<option value="0">Ninguno</option>
 				<option value="1">Color de fondo</option>
-			</select>
-			<br/><br/>
+			</select> 
+			<br/>
 			<label for="exposure">Exposici&oacute;n</label>
 			<select id="exposure" name="exposure" class="text ui-widget-content ui-corner-all slide-input">
 				<?php for ($i = 500; $i<20000; $i += 500):?>
@@ -61,11 +61,11 @@
 							<input type="hidden" name="pic[]" id="pic" value="" />
 						</div>
 						<div class="slide-info">
-							<label for="posx" class="slide-label">X</label>
-							<input type="text" id="posx" name="posx[]" class="text ui-widget-content ui-corner-all slide-input" />px
-							<br/>
-							<label for="posy" class="slide-label">Y</label>
-							<input type="text" id="posy" name="posy[]" class="text ui-widget-content ui-corner-all slide-input" />px
+							<label for="type" class="slide-label">Tipo</label>
+							<select id="type" name="type[]" class="text ui-widget-content ui-corner-all slide-input">
+								<option value="1">Antes</option>
+								<option value="2">Despues</option>
+							</select>
 							<br/>
 							<label for="rotation" class="slide-label">Rotaci&oacute;n</label>
 							<input type="text" id="rotation" name="rotation[]" class="text ui-widget-content ui-corner-all slide-input" />&deg;
@@ -99,11 +99,11 @@
 		<input type="hidden" name="pic[]" id="pic" value="" />
 	</div>
 	<div class="slide-info">
-		<label for="posx" class="slide-label">X</label>
-		<input type="text" id="posx" name="posx[]" class="text ui-widget-content ui-corner-all slide-input" />px
-		<br/>
-		<label for="posy" class="slide-label">Y</label>
-		<input type="text" id="posy" name="posy[]" class="text ui-widget-content ui-corner-all slide-input" />px
+		<label for="type" class="slide-label">Tipo</label>
+		<select id="type" name="type[]" class="text ui-widget-content ui-corner-all slide-input">
+			<option value="1">Antes</option>
+			<option value="2">Despues</option>
+		</select>
 		<br/>
 		<label for="rotation" class="slide-label">Rotaci&oacute;n</label>
 		<input type="text" id="rotation" name="rotation[]" class="text ui-widget-content ui-corner-all slide-input" />&deg;

@@ -93,8 +93,7 @@ function cleanSlideshow() {
  */
 function advanceAndRecord(targetPick, actualPick, curTime) {
 	if (current <= images.length) {
-		console.log("slides " + (current-1) + " = " + slides[current-1].code);
-    	results[current-1] = {
+		results[current-1] = {
 			    code: slides[current-1].code,
     			target: targetPick, 
 			    actual: actualPick,
@@ -182,7 +181,7 @@ function displayResults() {
 	var timeWrong = 0;
 	var numUnanswered = 0;
 	var total = 0;
-	console.log(results);
+
 	for (i=0; i<results.length; i++) {
 		if (results[i].actual == null) {
 			numUnanswered++;
@@ -224,10 +223,10 @@ function displayResults() {
 		url: urlSave,
 		type: "POST",
 		data: {'testid' : testData.testId,
-			'firstname' : firstname.val(),
-			'lastname' : lastname.val(),
-			'age' : age.val(),
-			'docid' : docid.val(),
+			'firstname' : testData.firstname,
+			'lastname' : testData.lastname,
+			'age' : testData.age,
+			'docid' : testData.docid,
 			'results' : JSON.stringify(results)}
 	});
 

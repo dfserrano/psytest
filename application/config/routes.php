@@ -62,6 +62,14 @@ $route['timedcreftest/results/(:any)'] = 'timedcreftest/results/$1';
 $route['timedcreftest/(:any)'] = 'timedcreftest/view/$1';
 $route['timedcreftest'] = 'timedcreftest';
 
+// Memory CREF test
+$route['memcreftest/add'] = 'memcreftest/add';
+$route['memcreftest/save'] = 'memcreftest/save';
+$route['memcreftest/index'] = 'memcreftest/index';
+$route['memcreftest/results/(:any)'] = 'memcreftest/results/$1';
+$route['memcreftest/(:any)'] = 'memcreftest/view/$1';
+$route['memcreftest'] = 'memcreftest';
+
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 

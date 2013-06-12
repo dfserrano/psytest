@@ -3,6 +3,7 @@
 <?php echo form_error('userfile', '<span class="error">', '</span>'); ?>
 
 <div id="main">
+	<?php echo validation_errors(); ?>
 	<div>
 		<a href="#" id="btn-add">Agregar cara</a><br/><br/>
 	</div>

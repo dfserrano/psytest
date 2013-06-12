@@ -31,6 +31,7 @@
 </div>
 
 <div id="main">
+	<?php echo validation_errors(); ?>
 	<?php echo form_open_multipart('timedcreftest/add') ?>
 		<fieldset>
 			<label for="name">Nombre</label>
