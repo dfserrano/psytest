@@ -70,6 +70,14 @@ $route['memcreftest/results/(:any)'] = 'memcreftest/results/$1';
 $route['memcreftest/(:any)'] = 'memcreftest/view/$1';
 $route['memcreftest'] = 'memcreftest';
 
+// Digits
+$route['digittest/add'] = 'digittest/add';
+$route['digittest/save'] = 'digittest/save';
+$route['digittest/index'] = 'digittest/index';
+$route['digittest/results/(:any)'] = 'digittest/results/$1';
+$route['digittest/(:any)'] = 'digittest/view/$1';
+$route['digittest'] = 'digittest';
+
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 
