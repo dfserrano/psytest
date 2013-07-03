@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 12-06-2013 a las 18:32:33
+-- Tiempo de generación: 03-07-2013 a las 09:01:19
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -176,6 +176,29 @@ INSERT INTO `test_cref` VALUES (7, 'CREF', '2013-05-29 12:53:45', 0, 4500);
 -- --------------------------------------------------------
 
 -- 
+-- Estructura de tabla para la tabla `test_digit`
+-- 
+
+CREATE TABLE `test_digit` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(25) collate utf8_spanish2_ci NOT NULL,
+  `date` datetime NOT NULL,
+  `disturbance` smallint(2) NOT NULL,
+  `exposure` int(10) NOT NULL,
+  `type` smallint(1) unsigned NOT NULL default '1' COMMENT '1-direct, 2-reverse',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_digit`
+-- 
+
+INSERT INTO `test_digit` VALUES (1, 'Primera', '2013-06-18 11:51:34', 1, 1500, 1);
+INSERT INTO `test_digit` VALUES (2, 'Inversa', '2013-06-18 17:45:47', 0, 1500, 2);
+
+-- --------------------------------------------------------
+
+-- 
 -- Estructura de tabla para la tabla `test_memcref`
 -- 
 
@@ -209,7 +232,7 @@ CREATE TABLE `test_result_cref` (
   `date` datetime NOT NULL,
   `docid` varchar(20) collate utf8_spanish2_ci default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=16 ;
 
 -- 
 -- Volcar la base de datos para la tabla `test_result_cref`
@@ -222,6 +245,36 @@ INSERT INTO `test_result_cref` VALUES (9, 6, '', '', 0, '2013-05-29 09:01:28', '
 INSERT INTO `test_result_cref` VALUES (10, 6, '', '', 0, '2013-05-29 12:35:02', '');
 INSERT INTO `test_result_cref` VALUES (11, 7, '', '', 0, '2013-05-29 12:58:18', '');
 INSERT INTO `test_result_cref` VALUES (12, 7, '', '', 0, '2013-05-31 12:27:42', '');
+INSERT INTO `test_result_cref` VALUES (13, 1, '0', '0', 0, '2013-06-18 15:48:28', '0');
+INSERT INTO `test_result_cref` VALUES (14, 1, '0', '0', 0, '2013-06-18 15:50:28', '0');
+INSERT INTO `test_result_cref` VALUES (15, 1, '0', '0', 0, '2013-06-18 16:30:07', '0');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `test_result_digit`
+-- 
+
+CREATE TABLE `test_result_digit` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `test_fk` int(10) unsigned NOT NULL,
+  `firstname` varchar(80) collate utf8_spanish2_ci NOT NULL,
+  `lastname` varchar(80) collate utf8_spanish2_ci NOT NULL,
+  `age` tinyint(2) unsigned NOT NULL,
+  `date` datetime NOT NULL,
+  `docid` varchar(20) collate utf8_spanish2_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=6 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_result_digit`
+-- 
+
+INSERT INTO `test_result_digit` VALUES (1, 1, '0', '0', 0, '2013-06-18 16:32:48', '0');
+INSERT INTO `test_result_digit` VALUES (2, 1, '0', '0', 0, '2013-06-18 16:45:05', '0');
+INSERT INTO `test_result_digit` VALUES (3, 1, '0', '0', 0, '2013-06-18 16:52:39', '0');
+INSERT INTO `test_result_digit` VALUES (4, 1, '0', '0', 0, '2013-06-18 17:36:55', '0');
+INSERT INTO `test_result_digit` VALUES (5, 2, '0', '0', 0, '2013-06-18 17:50:58', '0');
 
 -- --------------------------------------------------------
 
@@ -278,6 +331,64 @@ INSERT INTO `test_result_item_cref` VALUES (33, 12, 'HMNG13', 'asco', 'miedo', 3
 INSERT INTO `test_result_item_cref` VALUES (34, 12, 'MN14', 'neutra', 'neutra', 1742);
 INSERT INTO `test_result_item_cref` VALUES (35, 12, 'HSP22', 'sorpresa', 'sorpresa', 5534);
 INSERT INTO `test_result_item_cref` VALUES (36, 12, 'MRNG21', 'ira', 'ira', 1262);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `test_result_item_digit`
+-- 
+
+CREATE TABLE `test_result_item_digit` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `test_result_fk` int(11) NOT NULL,
+  `actual` varchar(20) collate utf8_spanish2_ci NOT NULL,
+  `target` varchar(20) collate utf8_spanish2_ci NOT NULL,
+  `time` int(11) unsigned NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=39 ;
+
+-- 
+-- Volcar la base de datos para la tabla `test_result_item_digit`
+-- 
+
+INSERT INTO `test_result_item_digit` VALUES (1, 1, '51', '51', 2862);
+INSERT INTO `test_result_item_digit` VALUES (2, 1, '83', '38', 2231);
+INSERT INTO `test_result_item_digit` VALUES (3, 1, '555', '930', 2852);
+INSERT INTO `test_result_item_digit` VALUES (4, 1, '111', '316', 1763);
+INSERT INTO `test_result_item_digit` VALUES (5, 2, '73', '73', 2186);
+INSERT INTO `test_result_item_digit` VALUES (6, 2, '29', '29', 2323);
+INSERT INTO `test_result_item_digit` VALUES (7, 2, '845', '845', 3435);
+INSERT INTO `test_result_item_digit` VALUES (8, 2, '652', '462', 3291);
+INSERT INTO `test_result_item_digit` VALUES (9, 2, '8052', '8052', 4316);
+INSERT INTO `test_result_item_digit` VALUES (10, 2, '3728', '3728', 3502);
+INSERT INTO `test_result_item_digit` VALUES (11, 2, '35815', '35815', 4779);
+INSERT INTO `test_result_item_digit` VALUES (12, 2, '21028', '21028', 4043);
+INSERT INTO `test_result_item_digit` VALUES (13, 2, '307289', '307829', 6661);
+INSERT INTO `test_result_item_digit` VALUES (14, 2, '246984', '264984', 5870);
+INSERT INTO `test_result_item_digit` VALUES (15, 3, '74', '74', 2621);
+INSERT INTO `test_result_item_digit` VALUES (16, 3, '32', '32', 2347);
+INSERT INTO `test_result_item_digit` VALUES (17, 3, '011', '015', 2354);
+INSERT INTO `test_result_item_digit` VALUES (18, 3, '875', '875', 3327);
+INSERT INTO `test_result_item_digit` VALUES (19, 3, '2222', '1315', 2310);
+INSERT INTO `test_result_item_digit` VALUES (20, 3, '2222', '8904', 2625);
+INSERT INTO `test_result_item_digit` VALUES (21, 4, '52', '52', 3496);
+INSERT INTO `test_result_item_digit` VALUES (22, 4, '38', '38', 2152);
+INSERT INTO `test_result_item_digit` VALUES (23, 4, '745', '745', 3260);
+INSERT INTO `test_result_item_digit` VALUES (24, 4, '079', '079', 4484);
+INSERT INTO `test_result_item_digit` VALUES (25, 4, '6538', '6538', 3961);
+INSERT INTO `test_result_item_digit` VALUES (26, 4, '6102', '6102', 4552);
+INSERT INTO `test_result_item_digit` VALUES (27, 4, '93402', '93402', 4913);
+INSERT INTO `test_result_item_digit` VALUES (28, 4, '70323', '70323', 4941);
+INSERT INTO `test_result_item_digit` VALUES (29, 4, '485216', '485216', 5669);
+INSERT INTO `test_result_item_digit` VALUES (30, 4, '591613', '591613', 5739);
+INSERT INTO `test_result_item_digit` VALUES (31, 4, '9480808', '9408080', 8293);
+INSERT INTO `test_result_item_digit` VALUES (32, 4, '1273409', '1273409', 5712);
+INSERT INTO `test_result_item_digit` VALUES (33, 4, '62461523', '62461573', 7219);
+INSERT INTO `test_result_item_digit` VALUES (34, 4, '89746862', '89784686', 6848);
+INSERT INTO `test_result_item_digit` VALUES (35, 5, '40', '40', 3261);
+INSERT INTO `test_result_item_digit` VALUES (36, 5, '03', '03', 6282);
+INSERT INTO `test_result_item_digit` VALUES (37, 5, '298', '892', 2510);
+INSERT INTO `test_result_item_digit` VALUES (38, 5, '623', '326', 2611);
 
 -- --------------------------------------------------------
 
