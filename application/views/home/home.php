@@ -12,6 +12,9 @@
 		<a href="<?php echo site_url("digittest/index");?>">Pruebas de Digitos</a>
 	</div>
 	<div>
+		<a href="<?php echo site_url("strooptest/index");?>">Pruebas de Stroop</a>
+	</div>
+	<div>
 		<a href="<?php echo site_url("faces/index");?>">Banco de im&aacute;genes</a>
 	</div>
 </div>

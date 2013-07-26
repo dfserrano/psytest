@@ -78,6 +78,14 @@ $route['digittest/results/(:any)'] = 'digittest/results/$1';
 $route['digittest/(:any)'] = 'digittest/view/$1';
 $route['digittest'] = 'digittest';
 
+// Stroop
+$route['strooptest/add'] = 'strooptest/add';
+$route['strooptest/save'] = 'strooptest/save';
+$route['strooptest/index'] = 'strooptest/index';
+$route['strooptest/results/(:any)'] = 'strooptest/results/$1';
+$route['strooptest/(:any)'] = 'strooptest/view/$1';
+$route['strooptest'] = 'strooptest';
+
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 
