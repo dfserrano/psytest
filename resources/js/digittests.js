@@ -163,7 +163,7 @@ function nextSlide() {
 	
 	$('#slide').empty();
 
-	if (testData.disturbance == 1) {
+	if (testData.disturbance == 1 && currentTry > 4) {
 		body = $('body');
 		randomBackgroundColor(body, '');
 	}

@@ -53,6 +53,7 @@ class strooptest_model extends CI_Model {
 				'name' => $data['name'],
 				'disturbance' => $data['disturbance'],
 				'type' => $data['type'],
+				'exposure' => $data['exposure'],
 				'num_questions' => $data['num_questions'],
 				'date' => date('Y-m-d H:i:s')
 		);

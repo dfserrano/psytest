@@ -67,6 +67,7 @@ class StroopTest extends CI_Controller {
 			$this->form_validation->set_rules('disturbance', 'Perturbador', 'required|xss_clean');
 			$this->form_validation->set_rules('type', 'Exposicion', 'required|xss_clean');
 			$this->form_validation->set_rules('num_questions', 'Numero de Preguntas', 'required|xss_clean');
+			$this->form_validation->set_rules('exposure', 'Exposicion', 'required|xss_clean');
 			
 			$this->form_validation->set_message('required', 'El  %s es requerido');
 				
@@ -78,6 +79,7 @@ class StroopTest extends CI_Controller {
 						'disturbance' => $this->input->post('disturbance'),
 						'type' => $this->input->post('type'),
 						'num_questions' => $this->input->post('num_questions'),
+						'exposure' => $this->input->post('exposure'),
 						'word' => $this->input->post('word'),
 						'color' => $this->input->post('color'),
 				);

@@ -29,6 +29,28 @@ function checkLength(o, n, min, max) {
 }
 
 /**
+ * Checks value of object is between a range
+ * @param o Object
+ * @param n Object name to appear in the tip
+ * @param min Min range
+ * @param max Max range
+ * @returns true if it is in the desired length.  false otherwise
+ */
+function checkNumeric(o, n) {
+	if (!isNumber(o.val())) {
+		o.addClass("ui-state-error");
+		updateTips("El contenido de " + n + " debe ser numerico.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function isNumber(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
  * Checks value of object matches a regular expression
  * @param o Object
  * @param n Object name to appear in the tip

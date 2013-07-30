@@ -99,7 +99,7 @@ $(document).ready(function() {
 	preload(slides);
 
 	// Opens test taker dialog
-	//$("#dialog-form").dialog("open");
+	$("#dialog-form").dialog("open");
 	
 	showStartButton();
 	

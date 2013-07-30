@@ -122,8 +122,6 @@ function advanceAndRecord(picId, picCode, success, curTime) {
 		};
 		results.push(resultItem);
 
-		console.log(results);
-		console.log(current + " < " + images.length);
 		if (current < images.length) {
 			nextSlide();
 		} else {
@@ -157,11 +155,6 @@ function showReelOfPictures() {
 			'margin' : '10px'
 		});
 
-		if (testData.disturbance == 1) {
-			body = $('body');
-			randomBackgroundColor(body, '');
-		}
-
 		if (slides[current].type == 2) {
 			var actionLink = $('<a href="#" class="pic-button" rel="'
 					+ slides[current].pic_id + '::' + slides[current].code
@@ -172,6 +165,11 @@ function showReelOfPictures() {
 			$('#slide').append(images[current++]);
 		}
 
+	}
+	
+	if (testData.disturbance == 1 && current > 20) {
+		body = $('body');
+		randomBackgroundColor(body, '');
 	}
 
 	// Handles clic on emotion buttons

@@ -121,7 +121,7 @@ function nextSlide() {
 	if (current < testData.numQuestions) {
 		$('#slide').empty();
 
-		if (testData.disturbance == 1) {
+		if (testData.disturbance == 1 && current > 2) {
 			body = $('body');
 			randomBackgroundColor(body, '');
 		}

@@ -19,7 +19,26 @@
 			</select>
 			<br/>
 			<label for="num_questions">N. Preguntas</label>
-			<input type="text" id="num_questions" name="num_questions" class="text ui-widget-content ui-corner-all slide-input" />
+			<select id="num_questions" name="num_questions" class="text ui-widget-content ui-corner-all slide-input">
+				<?php 
+				for ($i=1; $i<=120; $i++) {
+					?>
+					<option value="<?php echo $i?>"><?php echo $i?></option>
+					<?php 
+				}
+				?>
+			</select>
+			<br/>
+			<label for="exposure">Exposici&oacute;n</label>
+			<select id="exposure" name="exposure" class="text ui-widget-content ui-corner-all slide-input">
+				<?php 
+				for ($i=1; $i<=120; $i++) {
+					?>
+					<option value="<?php echo ($i * 1000)?>"><?php echo $i?> s.</option>
+					<?php 
+				}
+				?>
+			</select>
 			<br/><br/>
 			
 			<div id="slides">

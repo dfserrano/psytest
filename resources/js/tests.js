@@ -138,7 +138,7 @@ function nextSlide() {
 
 		translate(images[current], $('#slide'), posx, posy, slides[current].width, slides[current].height);
 		
-		if (testData.disturbance == 1) {
+		if (testData.disturbance == 1 && current >= 2) {
 			body = $('body');
 			randomBackgroundColor(body, '');
 		}

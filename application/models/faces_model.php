@@ -52,12 +52,12 @@ class Faces_model extends CI_Model {
 		$width = Faces_model::$MAX_THUMB_WIDTH;
 		$height = Faces_model::$MAX_THUMB_HEIGHT;
 		
-		if (($image_data['image_width'] / $max_thumb_width) > ($image_data['image_height'] / $max_thumb_height)) {
-			$height = $max_thumb_height;
-			$width = $image_data['image_width'] * ($max_thumb_height / $image_data['image_height']);
+		if (($image_data['image_width'] / Faces_model::$MAX_THUMB_WIDTH) > ($image_data['image_height'] / Faces_model::$MAX_THUMB_HEIGHT)) {
+			$height = Faces_model::$MAX_THUMB_HEIGHT;
+			$width = $image_data['image_width'] * (Faces_model::$MAX_THUMB_HEIGHT / $image_data['image_height']);
 		} else {
-			$width = $max_thumb_width;
-			$height = $image_data['image_height'] * ($max_thumb_width / $image_data['image_width']);
+			$width = Faces_model::$MAX_THUMB_WIDTH;
+			$height = $image_data['image_height'] * (Faces_model::$MAX_THUMB_WIDTH / $image_data['image_width']);
 		}
 		
 		$config = array(
