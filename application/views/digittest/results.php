@@ -1,4 +1,5 @@
 <div id="main">
+	<a href="<?php echo site_url("home/index");?>" class="menu-button">Volver a Men&uacute;</a>
 	<?php if (sizeof($results) > 0):?>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -8,7 +9,7 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var dataRightWrong = google.visualization.arrayToDataTable([
-			['Code', 'Num. Correctas', 'Num. Incorrectas'],
+			['Longitud de Serie', 'Num. Respuestas Correctas', 'Num. Respuestas Incorrectas'],
 			<?php 
 			foreach ($results as $code=>$result) {
 				echo "['$code', " . $result['num_right'] . ", " . $result['num_wrong'] . "],";
@@ -16,24 +17,33 @@
         ]);
 
         var dataTime = google.visualization.arrayToDataTable([
-			['Code', 'Tiempo Correctas', 'Tiempo Incorrectas', 'Tiempo Total'],
+			['Longitud de Serie', 'Tiempo Promedio Correctas', 'Tiempo Promedio Incorrectas', 'Tiempo Promedio Total'],
             <?php 
             foreach ($results as $code=>$result) {
-            	echo "['$code', " . $result['time_right'] . ", " . $result['time_wrong'] . ", " . ($result['time_right']+$result['time_wrong']) . "],";
+				$avg_right = (($result['num_right'] != 0)? $result['time_right'] / $result['num_right'] : 0);
+				$avg_wrong = (($result['num_wrong'] != 0)? $result['time_wrong'] / $result['num_wrong'] : 0);
+				$avg_total = (($result['num_right'] != 0 || $result['num_wrong'] != 0)? ($result['time_right']+$result['time_wrong']) / ($result['num_right']+$result['num_wrong']) : 0);
+            	echo "['$code', " . $avg_right . ", " . $avg_wrong . ", " . $avg_total . "],";
 			}?>
 		]);
 
-        var options = {
-			title: 'Correctas vs. Incorrectas',
-			hAxis: {title: 'Code', titleTextStyle: {color: 'black'}}
-		};
-        
+        var optionsNum = {
+    			title: 'Correctas vs. Incorrectas - Numero de Respuestas',
+    			hAxis: {title: 'Longitud de Serie', titleTextStyle: {color: 'black'}},
+    			vAxis: {title: 'Numero de Respuestas', titleTextStyle: {color: 'black'}}
+    		};
+
+        var optionsTime = {
+    			title: 'Correctas vs. Incorrectas - Tiempo Promedio',
+    			hAxis: {title: 'Longitud de Serie', titleTextStyle: {color: 'black'}},
+    			vAxis: {title: 'Tiempo Promedio (ms)', titleTextStyle: {color: 'black'}}
+    		};        
 
         var chartRightWrong = new google.visualization.ColumnChart(document.getElementById('chartRightWrong'));
-        chartRightWrong.draw(dataRightWrong, options);
+        chartRightWrong.draw(dataRightWrong, optionsNum);
 
         var chartTime = new google.visualization.ColumnChart(document.getElementById('chartTime'));
-        chartTime.draw(dataTime, options);
+        chartTime.draw(dataTime, optionsTime);
 		
       }
       
