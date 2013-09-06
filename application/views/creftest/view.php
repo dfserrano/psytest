@@ -32,10 +32,11 @@
 		style="position: relative; height: 500px; width: 700px; display: inline-block; text-align: left">
 		<div id="instructions" style="text-align: center">
 			<h2>Instrucciones</h2>
-			<br /> A continuaci&oacute;n usted vera una serie de im&aacute;genes.
-			Cada una de las im&aacute;genes esta asociada con una emoci&oacute;
-			determinada. Usted deber&aacute; escoger la emoci&oacute; que mejor
-			se ajuste. <br /> <br />
+			<br /> A continuaci&oacute;n, usted observar&aacute;, una serie de rostros que 
+			reflejan una emoci&oacute;n cada uno, usted deber&aacute; identificar cu&aacute;l es 
+			la emoción que expresa cada rostro,  
+			por favor señale la opci&oacute;n que corresponda a la expresi&oacute;n que acaba de 
+			observar<br /> <br />
 		</div>
 		<div id="loading" style="text-align: center; width: 100%">
 			<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>" />
