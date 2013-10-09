@@ -53,6 +53,20 @@ class CrefTest extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	
+	
+	public function report($id)
+	{
+		$data['title'] = 'Informe';
+	
+		$results = $this->creftest_model->get_test_results($id);
+		
+		$data['results'] = $results;
+	
+		$this->load->view('templates/header', $data);
+		$this->load->view('creftest/report', $data);
+		$this->load->view('templates/footer');
+	}
+	
 	/**
 	 * Adds a new test
 	 */

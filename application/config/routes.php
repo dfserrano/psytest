@@ -51,6 +51,7 @@ $route['creftest/add'] = 'creftest/add';
 $route['creftest/save'] = 'creftest/save';
 $route['creftest/index'] = 'creftest/index';
 $route['creftest/results/(:any)'] = 'creftest/results/$1';
+$route['creftest/report/(:any)'] = 'creftest/report/$1';
 $route['creftest/(:any)'] = 'creftest/view/$1';
 $route['creftest'] = 'creftest';
 
