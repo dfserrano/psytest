@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-| -------------------------------------------------------------------------
+ | -------------------------------------------------------------------------
 | Hooks
 | -------------------------------------------------------------------------
 | This file lets you define "hooks" to extend CI without hacking the core
@@ -10,7 +10,12 @@
 |
 */
 
+$hook['post_controller_constructor'] = array(
+		'class' => 'LanguageLoader',
+		'function' => 'initialize',
+		'filename' => 'LanguageLoader.php',
+		'filepath' => 'hooks');
 
 
-/* End of file hooks.php */
+		/* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

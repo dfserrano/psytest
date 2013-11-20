@@ -4,6 +4,7 @@ class creftest_model extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
+		$this->load->model('faces_model');
 	}
 
 	public function get() {
@@ -42,7 +43,15 @@ class creftest_model extends CI_Model {
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_cref', 'test_result_cref.id = test_result_item_cref.test_result_fk');
 		
-			return $this->db->get()->result_array();
+			$site_lang = $this->session->userdata('site_lang');
+			$results = $this->db->get()->result_array();
+			
+			for ($i=0; $i<sizeof($results); $i++) {
+				$results[$i]['target'] = ucfirst($this->faces_model->get_globalized_emotion($results[$i]['target'], $site_lang));
+				$results[$i]['actual'] = ucfirst($this->faces_model->get_globalized_emotion($results[$i]['actual'], $site_lang));
+			}
+			
+			return $results;
 		}
 		
 		return null;

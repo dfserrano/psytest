@@ -41,6 +41,12 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
+// Users
+$route['user/index'] = 'user/login';
+$route['user/login'] = 'user/login';
+$route['user/logout'] = 'user/logout';
+$route['user'] = 'user';
+
 // Faces
 $route['faces/index'] = 'faces/index';
 $route['faces/(:any)'] = 'faces/view/$1';
@@ -60,6 +66,7 @@ $route['timedcreftest/add'] = 'timedcreftest/add';
 $route['timedcreftest/save'] = 'timedcreftest/save';
 $route['timedcreftest/index'] = 'timedcreftest/index';
 $route['timedcreftest/results/(:any)'] = 'timedcreftest/results/$1';
+$route['timedcreftest/report/(:any)'] = 'timedcreftest/report/$1';
 $route['timedcreftest/(:any)'] = 'timedcreftest/view/$1';
 $route['timedcreftest'] = 'timedcreftest';
 
@@ -68,6 +75,7 @@ $route['memcreftest/add'] = 'memcreftest/add';
 $route['memcreftest/save'] = 'memcreftest/save';
 $route['memcreftest/index'] = 'memcreftest/index';
 $route['memcreftest/results/(:any)'] = 'memcreftest/results/$1';
+$route['memcreftest/report/(:any)'] = 'memcreftest/report/$1';
 $route['memcreftest/(:any)'] = 'memcreftest/view/$1';
 $route['memcreftest'] = 'memcreftest';
 
@@ -76,6 +84,7 @@ $route['digittest/add'] = 'digittest/add';
 $route['digittest/save'] = 'digittest/save';
 $route['digittest/index'] = 'digittest/index';
 $route['digittest/results/(:any)'] = 'digittest/results/$1';
+$route['digittest/report/(:any)'] = 'digittest/report/$1';
 $route['digittest/(:any)'] = 'digittest/view/$1';
 $route['digittest'] = 'digittest';
 
@@ -84,9 +93,11 @@ $route['strooptest/add'] = 'strooptest/add';
 $route['strooptest/save'] = 'strooptest/save';
 $route['strooptest/index'] = 'strooptest/index';
 $route['strooptest/results/(:any)'] = 'strooptest/results/$1';
+$route['strooptest/report/(:any)'] = 'strooptest/report/$1';
 $route['strooptest/(:any)'] = 'strooptest/view/$1';
 $route['strooptest'] = 'strooptest';
 
+$route['home/switchLanguage/(:any)'] = 'home/switchLanguage/$1';
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 

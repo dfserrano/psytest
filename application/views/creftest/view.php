@@ -1,63 +1,37 @@
 <!-- Modal Dialog -->
-<div id="dialog-modal" title="Resumen">
-	<div id="dialog-modal-message"></div>
-	<div id="dialog-modal-saving" style="display: none">
-		<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>"
-			style="float: left" />
-		<p>&nbsp;Guardando...</p>
-	</div>
-</div>
-
-<div id="dialog-form" title="Datos del usuario">
-	<p class="validateTips">Todos los datos son requeridos.</p>
-	<form>
-		<fieldset>
-			<label for="firstname">Nombre</label> <input type="text"
-				name="firstname" id="firstname"
-				class="text ui-widget-content ui-corner-all" /> <label
-				for="lastname">Apellido</label> <input type="text" name="lastname"
-				id="lastname" class="text ui-widget-content ui-corner-all" />
-			<!-- <label for="email">Email</label>
-			<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />-->
-			<label for="age">Edad</label> <input type="text" name="age" id="age"
-				value="" class="text ui-widget-content ui-corner-all" /> <label
-				for="age">C&eacute;dula</label> <input type="text" name="docid"
-				id="docid" value="" class="text ui-widget-content ui-corner-all" />
-		</fieldset>
-	</form>
-</div>
+<?php $this->load->view('templates/summary_dialog');?>
+<?php $this->load->view('templates/user_dialog');?>
 
 <div id="main" style="text-align: center">
 	<div id="slide"
 		style="position: relative; height: 500px; width: 700px; display: inline-block; text-align: left">
 		<div id="instructions" style="text-align: center">
-			<h2>Instrucciones</h2>
-			<br /> A continuaci&oacute;n, usted observar&aacute;, una serie de rostros que 
-			reflejan una emoci&oacute;n cada uno, usted deber&aacute; identificar cu&aacute;l es 
-			la emoción que expresa cada rostro,  
-			por favor señale la opci&oacute;n que corresponda a la expresi&oacute;n que acaba de 
-			observar<br /> <br />
+			<h2><?php echo $this->lang->line('instr_header');?></h2>
+			<br />
+			<?php echo $this->lang->line('instr_cref');?>
+			<br /> <br />
 		</div>
 		<div id="loading" style="text-align: center; width: 100%">
 			<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>" />
-			<br />Espere mientras se carga la prueba...<br />
+			<br /><?php echo $this->lang->line('label_wait_while_loading');?>...<br />
 		</div>
 	</div>
 	<div id="buttons" style="text-align: center">
-		<a href="#" rel="alegria" class="emotion-button">Alegr&iacute;a</a> <a
-			href="#" rel="asco" class="emotion-button">Asco</a> <a href="#"
-			rel="ira" class="emotion-button">Ira</a> <a href="#" rel="miedo"
-			class="emotion-button">Miedo</a> <a href="#" rel="sorpresa"
-			class="emotion-button">Sorpresa</a> <a href="#" rel="tristeza"
-			class="emotion-button">Tristeza</a> <a href="#" rel="neutra"
-			class="emotion-button">Neutra</a>
+		<a href="#" rel="alegria" class="emotion-button"><?php echo $this->lang->line('option_joy');?></a> 
+		<a href="#" rel="asco" class="emotion-button"><?php echo $this->lang->line('option_disgust');?></a> 
+		<a href="#" rel="ira" class="emotion-button"><?php echo $this->lang->line('option_anger');?></a> 
+		<a href="#" rel="miedo"	class="emotion-button"><?php echo $this->lang->line('option_fear');?></a> 
+		<a href="#" rel="sorpresa" class="emotion-button"><?php echo $this->lang->line('option_surprise');?></a> 
+		<a href="#" rel="tristeza" class="emotion-button"><?php echo $this->lang->line('option_sadness');?></a> 
+		<a href="#" rel="neutra" class="emotion-button"><?php echo $this->lang->line('option_neutral');?></a>
 	</div>
 </div>
 
-<script
-	src="<?php echo base_url() . 'resources/js/tests.js'?>"></script>
-<script
-	src="<?php echo base_url() . 'resources/js/testsDialog.js'?>"></script>
+<script src="<?php echo base_url() . 'resources/js/tests.js'?>"></script>
+<script>
+var continueButtonString = "<?php echo $this->lang->line('continue');?>";
+</script>
+<script	src="<?php echo base_url() . 'resources/js/testsDialog.js'?>"></script>
 
 <script>
 // url for ajax save
@@ -93,7 +67,7 @@ function showStartButton() {
 	
 	if (numPreloaded == images.length) {
 		$('#loading').empty();
-		var startLink = $('<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>');
+		var startLink = $('<a href="#" id="btnStart"><?php echo $this->lang->line('label_click_when_ready');?></a>');
 		$('#loading').append(startLink);
 		startLink.click(function(e) {
 			e.preventDefault();
@@ -121,7 +95,7 @@ $(document).ready(function() {
 			
 		    pickEmotion(slides[current-1].emotion, $(this).attr('rel'));
 		} else {
-			alert("El botón solo funciona cuando inicia la prueba");
+			alert("<?php echo $this->lang->line('error_button_disabled_bef_test');?>");
 		}
 	});
 });

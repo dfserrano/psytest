@@ -1,46 +1,17 @@
 <!-- Modal Dialog -->
-<div id="dialog-modal" title="Escoja una cara">
-	<div id="dialog-modal-message">
-		<?php 
-		$i = 0;
-		$max_per_row = 6;
-		
-		if (sizeof($pictures) > 0) :
-			foreach ($pictures as $picture): ?>
-				<a href="#" rel="<?php echo $picture['id'] . ";" . $picture['path']?>" class="pick-pic" style="text-decoration:none">
-					<div class="pic-item">
-						<div class="pic-img" style="width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px; height:<?php echo Faces_model::$MAX_THUMB_HEIGHT?>px;">
-							<img src="<?php echo base_url() . 'resources/img/set1/thumbs/' . $picture['path']?>" />
-						</div>
-						<div class="pic-info" style="width:<?php echo Faces_model::$MAX_THUMB_WIDTH?>px;">
-							<?php echo $picture['code'] . '<br/>' . ucfirst($picture['emotion'])?>
-						</div>
-					</div>
-				</a>
-				<?php 
-				if (++$i % $max_per_row == 0) {
-					echo "<br/><br/>";
-				}
-			
-			endforeach;
-		else:
-			echo "A&uacute;n no hay im&aacute;genes";
-		endif;
-		?>
-	</div>
-</div>
+<?php $this->load->view('templates/faces_dialog');?>
 
 <div id="main">
 	<?php echo validation_errors(); ?>
 	<?php echo form_open_multipart('timedcreftest/add') ?>
 		<fieldset>
-			<label for="name">Nombre</label>
+			<label for="name"><?php echo $this->lang->line('label_name');?></label>
 			<input type="text" id="name" name="name" class="text ui-widget-content ui-corner-all slide-input" />
 			<br/>
-			<label for="disturbance">Perturbador</label>
+			<label for="disturbance"><?php echo $this->lang->line('label_disturber');?></label>
 			<select id="disturbance" name="disturbance" class="text ui-widget-content ui-corner-all slide-input">
-				<option value="0">Ninguno</option>
-				<option value="1">Color de fondo</option>
+				<option value="0"><?php echo $this->lang->line('option_none');?></option>
+				<option value="1"><?php echo $this->lang->line('option_bgcolor');?></option>
 			</select> 
 			<br/><br/>
 			
@@ -54,28 +25,28 @@
 							<input type="hidden" name="pic[]" id="pic" value="" />
 						</div>
 						<div class="slide-info">
-							<label for="exposure" class="slide-label">Exposici&oacute;n</label>
+							<label for="exposure" class="slide-label"><?php echo $this->lang->line('label_exposition');?></label>
 							<select id="exposure" name="exposure[]" class="text ui-widget-content ui-corner-all slide-input">
 								<?php for ($j = 500; $j<20000; $j += 500):?>
 								<option value="<?php echo $j?>"><?php echo ($j/1000) . " s."?></option>
 								<?php endfor?>
 							</select>
 							<br/>
-							<label for="posx" class="slide-label">X</label>
+							<label for="posx" class="slide-label"><?php echo $this->lang->line('label_x');?></label>
 							<input type="text" id="posx" name="posx[]" class="text ui-widget-content ui-corner-all slide-input" />px
 							<br/>
-							<label for="posy" class="slide-label">Y</label>
+							<label for="posy" class="slide-label"><?php echo $this->lang->line('label_y');?></label>
 							<input type="text" id="posy" name="posy[]" class="text ui-widget-content ui-corner-all slide-input" />px
 							<br/>
-							<label for="rotation" class="slide-label">Rotaci&oacute;n</label>
+							<label for="rotation" class="slide-label"><?php echo $this->lang->line('label_rotate');?></label>
 							<input type="text" id="rotation" name="rotation[]" class="text ui-widget-content ui-corner-all slide-input" />&deg;
 							<br/>
-							<label for="flip" class="slide-label">Voltear</label>
+							<label for="flip" class="slide-label"><?php echo $this->lang->line('label_flip');?></label>
 							<select id="flip" name="flip[]" class="text ui-widget-content ui-corner-all slide-input">
-								<option value="0">Ninguno</option>
-								<option value="1">Horizontalmente</option>
-								<option value="2">Verticalmente</option>
-								<option value="3">Ambos</option>
+								<option value="0"><?php echo $this->lang->line('option_none');?></option>
+								<option value="1"><?php echo $this->lang->line('option_vertical');?></option>
+								<option value="2"><?php echo $this->lang->line('option_horizontal');?></option>
+								<option value="3"><?php echo $this->lang->line('option_both');?></option>
 							</select>
 						</div>
 					</div>
@@ -83,12 +54,12 @@
 				
 			</div>
 			<div style="width:320px; text-align:right">
-				<a href="#" id="add-slide" title="Agregar Imagen">
+				<a href="#" id="add-slide" title="<?php echo $this->lang->line('label_add_image');?>">
 				<img src="<?php echo base_url() . 'resources/img/add_contact_small.png'?>" />
 				</a>
 			</div>
 			
-			<input type="submit" value="Guardar" />
+			<input type="submit" value="<?php echo $this->lang->line('label_save');?>" />
 		</fieldset>
 	<?php form_close();?>
 </div>
@@ -99,28 +70,28 @@
 		<input type="hidden" name="pic[]" id="pic" value="" />
 	</div>
 	<div class="slide-info">
-		<label for="exposure" class="slide-label">Exposici&oacute;n</label>
+		<label for="exposure" class="slide-label"><?php echo $this->lang->line('option_exposition');?></label>
 		<select id="exposure" name="exposure[]" class="text ui-widget-content ui-corner-all slide-input">
 			<?php for ($j = 500; $j<20000; $j += 500):?>
 			<option value="<?php echo $j?>"><?php echo ($j/1000) . " s."?></option>
 			<?php endfor?>
 		</select>
 		<br/>
-		<label for="posx" class="slide-label">X</label>
+		<label for="posx" class="slide-label"><?php echo $this->lang->line('label_x');?></label>
 		<input type="text" id="posx" name="posx[]" class="text ui-widget-content ui-corner-all slide-input" />px
 		<br/>
-		<label for="posy" class="slide-label">Y</label>
+		<label for="posy" class="slide-label"><?php echo $this->lang->line('label_y');?></label>
 		<input type="text" id="posy" name="posy[]" class="text ui-widget-content ui-corner-all slide-input" />px
 		<br/>
-		<label for="rotation" class="slide-label">Rotaci&oacute;n</label>
+		<label for="rotation" class="slide-label"><?php echo $this->lang->line('label_rotate');?></label>
 		<input type="text" id="rotation" name="rotation[]" class="text ui-widget-content ui-corner-all slide-input" />&deg;
 		<br/>
-		<label for="flip" class="slide-label">Voltear</label>
+		<label for="flip" class="slide-label"><?php echo $this->lang->line('label_flip');?></label>
 		<select id="flip" name="flip[]" class="text ui-widget-content ui-corner-all slide-input">
-			<option value="0">Ninguno</option>
-			<option value="1">Horizontalmente</option>
-			<option value="2">Verticalmente</option>
-			<option value="3">Ambos</option>
+			<option value="0"><?php echo $this->lang->line('option_none');?></option>
+			<option value="1"><?php echo $this->lang->line('option_vertical');?></option>
+			<option value="2"><?php echo $this->lang->line('option_horizontal');?></option>
+			<option value="3"><?php echo $this->lang->line('option_both');?></option>
 		</select>
 	</div>
 </div>

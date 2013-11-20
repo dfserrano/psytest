@@ -52,6 +52,12 @@ $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'psytest';
 $db['default']['password'] = 'psytest';
 $db['default']['database'] = 'psytest';
+
+/*$db['default']['hostname'] = 'sql204.0fees.net';
+$db['default']['username'] = 'fees0_13762269';
+$db['default']['password'] = 'cref123';
+$db['default']['database'] = 'fees0_13762269_psytest';*/
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

@@ -5,14 +5,18 @@ var docid = $("#docid");
 var allFields = $([]).add(firstname).add(lastname).add(age).add(docid);
 var tips = $(".validateTips");
 
+if (continueButtonString == undefined)
+	var continueButtonString = "Continuar";
+
 $("#dialog-form").dialog({
 	autoOpen: false,
 	height: 400,
 	width: 350,
 	modal: true,
 	position: { my: "center", at: "center", of: '#slide' },
-	buttons: {
-		"Continuar": function() {
+	buttons: [{
+		text: continueButtonString,
+		click: function() {
 			var bValid = true;
 			allFields.removeClass( "ui-state-error" );
 			bValid = bValid && checkLength( firstname, "nombre", 3, 16 );
@@ -40,7 +44,7 @@ $("#dialog-form").dialog({
 		/*Cancel: function() {
 			$( this ).dialog( "close" );
 		}*/
-	},
+	}],
 	open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
 	close: function() {
 		allFields.val("").removeClass( "ui-state-error" );

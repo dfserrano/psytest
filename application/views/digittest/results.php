@@ -1,5 +1,5 @@
 <div id="main">
-	<a href="<?php echo site_url("home/index");?>" class="menu-button">Volver a Men&uacute;</a>
+	<a href="<?php echo site_url("home/index");?>" class="menu-button"><?php echo $this->lang->line('back_to_menu');?></a>
 	<?php if (sizeof($results) > 0):?>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -9,7 +9,7 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var dataRightWrong = google.visualization.arrayToDataTable([
-			['Longitud de Serie', 'Num. Respuestas Correctas', 'Num. Respuestas Incorrectas'],
+			['<?php echo $this->lang->line('series_length');?>', '<?php echo $this->lang->line('label_num_right');?>', '<?php echo $this->lang->line('label_num_wrong');?>'],
 			<?php 
 			foreach ($results as $code=>$result) {
 				echo "['$code', " . $result['num_right'] . ", " . $result['num_wrong'] . "],";
@@ -17,7 +17,7 @@
         ]);
 
         var dataTime = google.visualization.arrayToDataTable([
-			['Longitud de Serie', 'Tiempo Promedio Correctas', 'Tiempo Promedio Incorrectas', 'Tiempo Promedio Total'],
+			['<?php echo $this->lang->line('series_length');?>', '<?php echo $this->lang->line('label_avg_time_right');?>', '<?php echo $this->lang->line('label_avg_time_wrong');?>', '<?php echo $this->lang->line('label_avg_time_total');?>'],
             <?php 
             foreach ($results as $code=>$result) {
 				$avg_right = (($result['num_right'] != 0)? $result['time_right'] / $result['num_right'] : 0);
@@ -28,15 +28,15 @@
 		]);
 
         var optionsNum = {
-    			title: 'Correctas vs. Incorrectas - Numero de Respuestas',
-    			hAxis: {title: 'Longitud de Serie', titleTextStyle: {color: 'black'}},
-    			vAxis: {title: 'Numero de Respuestas', titleTextStyle: {color: 'black'}}
+    			title: '<?php echo $this->lang->line('label_num_right_vs_wrong');?>',
+    			hAxis: {title: '<?php echo $this->lang->line('series_length');?>', titleTextStyle: {color: 'black'}},
+    			vAxis: {title: '<?php echo $this->lang->line('label_num_answers');?>', titleTextStyle: {color: 'black'}}
     		};
 
         var optionsTime = {
     			title: 'Correctas vs. Incorrectas - Tiempo Promedio',
-    			hAxis: {title: 'Longitud de Serie', titleTextStyle: {color: 'black'}},
-    			vAxis: {title: 'Tiempo Promedio (ms)', titleTextStyle: {color: 'black'}}
+    			hAxis: {title: '<?php echo $this->lang->line('series_length');?>', titleTextStyle: {color: 'black'}},
+    			vAxis: {title: '<?php echo $this->lang->line('label_avg_time');?>', titleTextStyle: {color: 'black'}}
     		};        
 
         var chartRightWrong = new google.visualization.ColumnChart(document.getElementById('chartRightWrong'));
@@ -54,6 +54,6 @@
 	<div id="chartTime" style="width: 900px; height: 500px;"></div>
 	<?php 
 	else:
-		echo "No hay resultados disponibles";
+		echo $this->lang->line('error_no_results_yet');
 	endif;?>
 </div>

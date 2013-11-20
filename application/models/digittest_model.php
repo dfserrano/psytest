@@ -22,7 +22,7 @@ class digittest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('target, actual, time');
+			$this->db->select('firstname, lastname, age, date, target, actual, time');
 			$this->db->from('test_result_digit');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_digit', 'test_result_digit.id = test_result_item_digit.test_result_fk');

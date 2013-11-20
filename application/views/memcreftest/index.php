@@ -1,7 +1,15 @@
 <div id="main">
-	<div>
-		<a href="<?php echo site_url("memcreftest/add");?>" id="btn-add">Agregar test</a><br/><br/>
-	</div>
+	<?php 
+	$username = $this->session->userdata('username');
+	
+	if ($username) {
+		?>
+		<div>
+			<a href="<?php echo site_url("memcreftest/add");?>" id="btn-add"><?php echo $this->lang->line('add_test');?></a><br/><br/>
+		</div>
+		<?php 
+	}
+	?>
 	
 	<div id="gallery">
 	<?php 	
@@ -12,15 +20,23 @@
 					<?php echo "<strong>" . $test['name'] . '</strong> - ' . $test['date']?>
 				</div>
 				<div id="test-actions">
-					<a href="<?php echo site_url("memcreftest/" . $test['id']);?>">[Ver]</a>
+					<a href="<?php echo site_url("memcreftest/" . $test['id']);?>">[<?php echo $this->lang->line('take_test');?>]</a>
 					&nbsp;
-					<a href="<?php echo site_url("memcreftest/results/" . $test['id']);?>">[Resultados]</a>
+					<a href="<?php echo site_url("memcreftest/results/" . $test['id']);?>">[<?php echo $this->lang->line('results');?>]</a>
+					<?php 
+					if ($username) {
+						?>
+						&nbsp;
+						<a href="<?php echo site_url("memcreftest/report/" . $test['id']);?>">[<?php echo $this->lang->line('report');?>]</a>
+						<?php 
+					}
+					?>
 				</div>
 			</div>
 			<?php 
 		endforeach;
 	else:
-		echo "A&uacute;n no hay pruebas";
+		echo $this->lang->line('error_no_test_yet');
 	endif;
 	?>
 	</div>

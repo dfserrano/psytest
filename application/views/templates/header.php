@@ -19,3 +19,19 @@ $this->load->helper('url');
 	<h1>
 		<?php echo $title?>
 	</h1>
+	<div style="text-align: right; font-size: 8pt">
+	<?php 
+	$username = $this->session->userdata('username');
+	
+	if ($username) {
+		echo $this->lang->line('label_loggedin_as') . " <strong>" . $username . "</strong> ";
+		?>
+		<a href="<?php echo site_url("user/logout");?>">[<?php echo $this->lang->line('label_exit');?>]</a>
+		<?php 
+	} else {
+		?>
+		<a href="<?php echo site_url("user/login");?>"><?php echo $this->lang->line('label_enter');?></a>
+		<?php
+	}
+	?>
+	</div>

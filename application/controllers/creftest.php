@@ -13,7 +13,7 @@ class CrefTest extends CI_Controller {
 	public function index()
 	{
 		$data['tests'] = $this->creftest_model->get();
-		$data['title'] = 'Pruebas de CREF';
+		$data['title'] = $this->lang->line('menu_cref');
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('creftest/index', $data);
@@ -23,7 +23,7 @@ class CrefTest extends CI_Controller {
 	
 	public function results($id)
 	{
-		$data['title'] = 'Resultados';
+		$data['title'] = $this->lang->line('results');
 		
 		$results = $this->creftest_model->get_test_results($id);
 		$summary = array();
@@ -54,9 +54,21 @@ class CrefTest extends CI_Controller {
 	}
 	
 	
+	private function admin_only() {
+		$username = $this->session->userdata('username');
+		
+		if ($username) {
+			return;
+		}
+		
+		redirect('/creftest/index/', 'refresh');
+	}
+	
 	public function report($id)
 	{
-		$data['title'] = 'Informe';
+		$this->admin_only();
+		
+		$data['title'] = $this->lang->line('report');
 	
 		$results = $this->creftest_model->get_test_results($id);
 		
@@ -72,18 +84,20 @@ class CrefTest extends CI_Controller {
 	 */
 	public function add()
 	{
+		$this->admin_only();
+		
 		$this->load->model('faces_model');
 		
-		$data['title'] = 'Nueva Prueba';
+		$data['title'] = $this->lang->line('new_test');
 		
 		if ($this->input->post('name')) 
 		{
 			//required=campo obligatorio||valid_email=validar correo||xss_clean=evitamos inyecciones de código
-			$this->form_validation->set_rules('name', 'Nombre', 'required|xss_clean');
-			$this->form_validation->set_rules('disturbance', 'Perturbador', 'required|xss_clean');
-			$this->form_validation->set_rules('exposure', 'Exposicion', 'required|xss_clean');
+			$this->form_validation->set_rules('name', $this->lang->line('label_name'), 'required|xss_clean');
+			$this->form_validation->set_rules('disturbance', $this->lang->line('label_disturber'), 'required|xss_clean');
+			$this->form_validation->set_rules('exposure', $this->lang->line('label_exposition'), 'required|xss_clean');
 			
-			$this->form_validation->set_message('required', 'El  %s es requerido');
+			$this->form_validation->set_message('required', $this->lang->line('error_required'));
 				
 			// if it's not valid, go back to the page showing errors
 			if($this->form_validation->run() == TRUE)

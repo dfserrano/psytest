@@ -1,16 +1,16 @@
 <div id="main">
-	<a href="<?php echo site_url("home/index");?>" class="menu-button">Volver a Men&uacute;</a>
+	<a href="<?php echo site_url("home/index");?>" class="menu-button"><?php echo $this->lang->line('back_to_menu');?></a>
+	<br/>&nbsp;
 	<?php if (sizeof($results) > 0):?>
-		<br/>&nbsp;
-	    <table width="100%" class="CSS_Table_Example">
+		<table class="CSS_Table_Example">
 	    <tr>
-	      <td>Nombre</td>
-	      <td>Edad</td>
-	      <td>Fecha</td>
-	      <td>Codigo de imagen</td>
-	      <td>Respuesta Esperada</td>
-	      <td>Respuesta Otorgada</td>
-	      <td>Tiempo (ms)</td>
+	      <td><?php echo $this->lang->line('label_name');?></td>
+	      <td><?php echo $this->lang->line('label_age');?></td>
+	      <td><?php echo $this->lang->line('label_date');?></td>
+	      <td><?php echo $this->lang->line('label_code');?></td>
+	      <td><?php echo $this->lang->line('label_expected_answer');?></td>
+	      <td><?php echo $this->lang->line('label_provided_answer');?></td>
+	      <td><?php echo $this->lang->line('label_time');?></td>
 	    </tr>
 	    <?php 
 		foreach ($results as $code=>$result) {
@@ -27,6 +27,6 @@
 		</table>	
 	<?php 
 	else:
-		echo "No hay resultados disponibles";
+		echo '<br/>'.$this->lang->line('error_no_results_yet');
 	endif;?>
 </div>

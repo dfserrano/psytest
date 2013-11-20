@@ -37,7 +37,7 @@ class timedcreftest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('pic_code, target_time, actual_time');
+			$this->db->select('firstname, lastname, age, date, pic_code, target_time, actual_time');
 			$this->db->from('test_result_timedcref');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_timedcref', 'test_result_timedcref.id = test_result_item_timedcref.test_result_fk');

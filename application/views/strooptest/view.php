@@ -1,48 +1,20 @@
 <!-- Modal Dialog -->
-<div id="dialog-modal" title="Resumen">
-	<div id="dialog-modal-message"></div>
-	<div id="dialog-modal-saving" style="display: none">
-		<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>"
-			style="float: left" />
-		<p>&nbsp;Guardando...</p>
-	</div>
-</div>
-
-<div id="dialog-form" title="Datos del usuario">
-	<p class="validateTips">Todos los datos son requeridos.</p>
-	<form>
-		<fieldset>
-			<label for="firstname">Nombre</label> <input type="text"
-				name="firstname" id="firstname"
-				class="text ui-widget-content ui-corner-all" /> <label
-				for="lastname">Apellido</label> <input type="text" name="lastname"
-				id="lastname" class="text ui-widget-content ui-corner-all" />
-			<!-- <label for="email">Email</label>
-			<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />-->
-			<label for="age">Edad</label> <input type="text" name="age" id="age"
-				value="" class="text ui-widget-content ui-corner-all" /> <label
-				for="age">C&eacute;dula</label> <input type="text" name="docid"
-				id="docid" value="" class="text ui-widget-content ui-corner-all" />
-		</fieldset>
-	</form>
-</div>
+<?php $this->load->view('templates/summary_dialog');?>
+<?php $this->load->view('templates/user_dialog');?>
 
 <div id="main" style="text-align: center">
 	<div id="slide"
 		style="position: relative; height: 500px; width: 700px; display: inline-block; text-align: left">
 		<div id="instructions" style="text-align: center">
-			<h2>Instrucciones</h2>
+			<h2><?php echo $this->lang->line('instr_header');?></h2>
 			<br /> 
 			<?php 
 			switch ($test['type']) {
-				case 1: echo "A continuaci&oacute;n usted ver&aacute; una palabra, y deber&aacute;
-							escoger la palabra a la cual se refiere.";
+				case 1: echo $this->lang->line('instr_stroop_1');
 						break;
-				case 2: echo "A continuaci&oacute;n usted ver&aacute; una palabra, y deber&aacute;
-							escoger el color de la palabra.";
+				case 2: echo $this->lang->line('instr_stroop_2');
 						break;
-				case 3: echo "A continuaci&oacute;n usted ver&aacute; una palabra de cierto color, y deber&aacute;
-							escoger el color con el cual se escribe la palabra.";
+				case 3: echo $this->lang->line('instr_stroop_3');
 						break;
 			} 
 			?>
@@ -50,26 +22,26 @@
 		</div>
 		<div id="loading" style="text-align: center; width: 100%">
 			<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>" />
-			<br />Espere mientras se carga la prueba...<br />
+			<br /><?php echo $this->lang->line('label_wait_while_loading');?>...<br />
 		</div>
 	</div>
 	<div id="buttons" style="text-align: center">
 		<?php 
 		foreach ($slides as $slide) { 
 			$option = "";
-			
-			switch($slide['color']) {
-				case 'black': $option = "Negro"; break;
-				case 'red': $option = "Rojo"; break;
-				case 'green': $option = "Verde"; break;
-				case 'blue': $option = "Azul"; break;
-				case 'purple': $option = "Purpura"; break;
-				case 'yellow': $option = "Amarillo"; break;
-				case 'orange': $option = "Naranja"; break;
-				case 'magenta': $option = "Magenta"; break;
-			}
+			$option = $slide['color'];
+			/*switch($slide['color']) {
+				case 'black': $option = 'black'; break;
+				case 'red': $option = 'red'; break;
+				case 'green': $option = 'green'; break;
+				case 'blue': $option = 'blue'; break;
+				case 'purple': $option = 'purple'; break;
+				case 'yellow': $option = 'yellow'; break;
+				case 'orange': $option = 'orange'; break;
+				case 'magenta': $option = 'magenta'; break;
+			}*/
 			?> 
-			<a href="#" rel="<?php echo $option?>" class="emotion-button"><?php echo $option?></a>
+			<a href="#" rel="<?php echo $option?>" class="emotion-button"><?php echo $slide['word']?></a>
 			<?php 
 		}
 		?>
@@ -108,7 +80,7 @@ function showStartButton() {
 		clearInterval(timer);
 	
 	$('#loading').empty();
-	var startLink = $('<a href="#" id="btnStart">Clic aqu&iacute; cuando est&eacute; listo para empezar</a>');
+	var startLink = $('<a href="#" id="btnStart"><?php echo $this->lang->line('label_click_when_ready');?></a>');
 	$('#loading').append(startLink);
 	startLink.click(function(e) {
 		e.preventDefault();
@@ -130,7 +102,7 @@ $(document).ready(function() {
 			
 		    pickColor(curTargetColor, $(this).attr('rel'));
 		} else {
-			alert("El botón solo funciona cuando inicia la prueba");
+			alert("<?php echo $this->lang->line('error_button_disabled_bef_test');?>");
 		}
 	});
 });

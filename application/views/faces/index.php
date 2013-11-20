@@ -5,29 +5,29 @@
 <div id="main">
 	<?php echo validation_errors(); ?>
 	<div>
-		<a href="#" id="btn-add">Agregar cara</a><br/><br/>
+		<a href="#" id="btn-add"><?php echo $this->lang->line('add_face');?></a><br/><br/>
 	</div>
-	<div id="dialog-form" title="Nueva cara">
+	<div id="dialog-form" title="<?php echo $this->lang->line('new_face');?>">
 		<div id="upload">
-			<p class="validateTips">Todos los datos son requeridos.</p>
+			<p class="validateTips"><?php echo $this->lang->line('label_all_required');?>.</p>
 			<?php 
 			$attributes = array('id' => 'create-form', 'name' => 'create-form');
 			echo form_open_multipart('faces', $attributes);
 			?>
 			<fieldset>
-				<label for="code">C&oacute;digo</label>
+				<label for="code"><?php echo $this->lang->line('label_code');?></label>
 				<input type="text" id="code" name="code" />
-				<label for="emotion">Emotion</label>
+				<label for="emotion"><?php echo $this->lang->line('label_emotion');?></label>
 				<select id="emotion" name="emotion">
-				  <option value="alegria">Alegria</option>
-				  <option value="asco">Asco</option>
-				  <option value="ira">Ira</option>
-				  <option value="miedo">Miedo</option>
-				  <option value="sorpresa">Sorpresa</option>
-				  <option value="tristeza">Tristeza</option>
-				  <option value="neutra">Neutra</option>
+				  <option value="alegria"><?php echo $this->lang->line('option_joy');?></option>
+				  <option value="asco"><?php echo $this->lang->line('option_disgust');?></option>
+				  <option value="ira"><?php echo $this->lang->line('option_anger');?></option>
+				  <option value="miedo"><?php echo $this->lang->line('option_fear');?></option>
+				  <option value="sorpresa"><?php echo $this->lang->line('option_surprise');?></option>
+				  <option value="tristeza"><?php echo $this->lang->line('option_sadness');?></option>
+				  <option value="neutra"><?php echo $this->lang->line('option_neutral');?></option>
 				</select> 
-				<label for="userfile">Imagen</label>
+				<label for="userfile"><?php echo $this->lang->line('label_image_file');?></label>
 				<?php 
 				$attributes = array('id' => 'userfile', 'name' => 'userfile');
 				echo form_upload($attributes);?>
@@ -58,7 +58,7 @@
 		
 		endforeach;
 	else:
-		echo "A&uacute;n no hay im&aacute;genes";
+		echo $this->lang->line('error_no_images_yet');
 	endif;
 	?>
 	</div>
@@ -78,12 +78,12 @@ $("#dialog-form").dialog({
 	modal: true,
 	position: { my: "center", at: "center", of: '#main' },
 	buttons: {
-		"Guardar": function() {
+		"<?php echo $this->lang->line('label_save');?>": function() {
 			var bValid = true;
 			allFields.removeClass("ui-state-error");
-			bValid = bValid && checkLength( code, "codigo", 3, 16 );
-			bValid = bValid && checkLength( emotion, "emocion", 3, 16 );
-			bValid = bValid && checkLength( file, "imagen", 1, 255 );
+			bValid = bValid && checkLength( code, "<?php echo $this->lang->line('label_code');?>", 3, 16 );
+			bValid = bValid && checkLength( emotion, "<?php echo $this->lang->line('label_emotion');?>", 3, 16 );
+			bValid = bValid && checkLength( file, "<?php echo $this->lang->line('label_image_file');?>", 1, 255 );
 			
 			if ( bValid ) {
 				// submit form
@@ -91,7 +91,7 @@ $("#dialog-form").dialog({
 				$("#dialog-form").dialog("close");
 			}
 		},
-		"Cancelar": function() {
+		"<?php echo $this->lang->line('label_cancel');?>": function() {
 			$( this ).dialog("close");
 		}
 	},

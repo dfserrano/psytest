@@ -35,7 +35,7 @@ class strooptest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('num, target, actual, time');
+			$this->db->select('firstname, lastname, age, date, num, target, actual, time');
 			$this->db->from('test_result_stroop');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_stroop', 'test_result_stroop.id = test_result_item_stroop.test_result_fk');

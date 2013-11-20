@@ -316,45 +316,6 @@ TABLES
 	border-bottom-left-radius: 9px;
 }
 
-.CSS_Table_Example tr:hover td {
-	background-color: #82c0ff;
-	background: -o-linear-gradient(bottom, #82c0ff 5%, #56aaff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #82c0ff
-		), color-stop(1, #56aaff));
-	background: -moz-linear-gradient(center top, #82c0ff 5%, #56aaff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#82c0ff",
-		endColorstr="#56aaff");
-	background: -o-linear-gradient(top, #82c0ff, 56aaff);
-}
-
-.CSS_Table_Example tr:first-child td {
-	background: -o-linear-gradient(bottom, #0069d3 5%, #007fff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0069d3
-		), color-stop(1, #007fff));
-	background: -moz-linear-gradient(center top, #0069d3 5%, #007fff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0069d3",
-		endColorstr="#007fff");
-	background: -o-linear-gradient(top, #0069d3, 007fff);
-	background-color: #0069d3;
-	border: 0px solid #000000;
-	text-align: center;
-	border-width: 0px 0px 1px 1px;
-	font-size: 18px;
-	font-weight: bold;
-	color: #ffffff;
-}
-
-.CSSTableGenerator tr:first-child:hover td {
-	background: -o-linear-gradient(bottom, #0069d3 5%, #007fff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0069d3
-		), color-stop(1, #007fff));
-	background: -moz-linear-gradient(center top, #0069d3 5%, #007fff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0069d3",
-		endColorstr="#007fff");
-	background: -o-linear-gradient(top, #0069d3, 007fff);
-	background-color: #0069d3;
-}
-
 .CSS_Table_Example tr:first-child td:first-child {
 	border-width: 0px 0px 1px 0px;
 }
@@ -363,15 +324,26 @@ TABLES
 	border-width: 0px 0px 1px 1px;
 }
 
-.CSS_Table_Example td {
-	background: -o-linear-gradient(bottom, #56aaff 5%, #82c0ff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #56aaff
-		), color-stop(1, #82c0ff));
-	background: -moz-linear-gradient(center top, #56aaff 5%, #82c0ff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#56aaff",
-		endColorstr="#82c0ff");
-	background: -o-linear-gradient(top, #56aaff, 82c0ff);
+.CSS_Table_Example tr:hover td {
+	background-color: #82c0ff;
+}
+
+.CSS_Table_Example tr:first-child td {
+	border: 0px solid #000000;
+	text-align: center;
+	border-width: 0px 0px 1px 1px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #ffffff;
 	background-color: #56aaff;
+}
+
+.CSSTableGenerator tr:first-child:hover td {
+	background-color: #0069d3;
+}
+
+.CSS_Table_Example td {
+	background-color: #ffffff;
 	border: 1px solid #000000;
 	border-width: 0px 1px 1px 0px;
 	text-align: left;
@@ -379,6 +351,7 @@ TABLES
 	font-size: 12px;
 	font-weight: bold;
 	color: #000000;
+	text-align: center;
 }
 
 .CSS_Table_Example tr:last-child td {

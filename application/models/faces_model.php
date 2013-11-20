@@ -17,7 +17,56 @@ class Faces_model extends CI_Model {
 	public function get()
 	{
 		$this->db->from('picture')->order_by("emotion", "asc");
-		return $this->db->get()->result_array();
+		
+		$pictures = $this->db->get()->result_array();
+		
+		$selected_language = $this->config->item('language');
+		if ($selected_language == 'spanish') {
+			return $pictures;
+		} else {
+			for ($i=0; $i<sizeof($pictures); $i++) {
+				$pictures[$i]['emotion'] = $this->get_globalized_emotion($pictures[$i]['emotion'], $selected_language);
+			}
+		}
+		
+		return $pictures;
+	}
+	
+	/**
+	 * Gets the globalized name of the emotion.  Languages supported: en, es, pt
+	 * @param String of the emotion in spanish $emotion
+	 * @param target language $language
+	 * @return globalized emotion
+	 */
+	public function get_globalized_emotion($emotion, $language='spanish') {
+		if ($language == 'spanish')
+			return $emotion;
+	
+		if ($language == 'english') {
+			switch($emotion) {
+				case 'alegria': return 'joy';
+				case 'asco': 	return 'disgust';
+				case 'ira': 	return 'anger';
+				case 'miedo': 	return 'fear';
+				case 'sorpresa': return 'surprise';
+				case 'tristeza': return 'sadness';
+				case 'neutra': 	return 'neutral';
+				default: 		return $emotion;
+			}
+		}
+		
+		if ($language == 'portuguese') {
+			switch($emotion) {
+				case 'alegria': return 'joy';
+				case 'asco': 	return 'disgust';
+				case 'ira': 	return 'anger';
+				case 'miedo': 	return 'fear';
+				case 'sorpresa': return 'surprise';
+				case 'tristeza': return 'sadness';
+				case 'neutra': 	return 'neutral';
+				default: 		return $emotion;
+			}
+		}
 	}
 	
 	/**

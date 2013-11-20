@@ -13,7 +13,7 @@ class MemCrefTest extends CI_Controller {
 	public function index()
 	{
 		$data['tests'] = $this->memcreftest_model->get();
-		$data['title'] = 'Pruebas de CREF de memoria';
+		$data['title'] = $this->lang->line('menu_cref_timed');
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('memcreftest/index', $data);
@@ -23,7 +23,7 @@ class MemCrefTest extends CI_Controller {
 	
 	public function results($id)
 	{
-		$data['title'] = 'Resultados';
+		$data['title'] = $this->lang->line('results');
 		
 		$results = $this->memcreftest_model->get_test_results($id);
 		$summary = array();
@@ -53,23 +53,51 @@ class MemCrefTest extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	
+	public function report($id)
+	{
+		$this->admin_only();
+	
+		$data['title'] = $this->lang->line('report');
+	
+		$results = $this->memcreftest_model->get_test_results($id);
+	
+		$data['results'] = $results;
+	
+		$this->load->view('templates/header', $data);
+		$this->load->view('memcreftest/report', $data);
+		$this->load->view('templates/footer');
+	}
+	
+	
+	private function admin_only() {
+		$username = $this->session->userdata('username');
+	
+		if ($username) {
+			return;
+		}
+	
+		redirect('/memcreftest/index/', 'refresh');
+	}
+	
 	/**
 	 * Adds a new test
 	 */
 	public function add()
 	{
+		$this->admin_only();
+		
 		$this->load->model('faces_model');
 		
-		$data['title'] = 'Nueva Prueba';
+		$data['title'] = $this->lang->line('new_test');
 		
 		if ($this->input->post('name')) 
 		{
 			//required=campo obligatorio||valid_email=validar correo||xss_clean=evitamos inyecciones de código
-			$this->form_validation->set_rules('name', 'Nombre', 'required|xss_clean');
-			$this->form_validation->set_rules('disturbance', 'Perturbador', 'required|xss_clean');
-			$this->form_validation->set_rules('exposure', 'exposure', 'required|xss_clean');
+			$this->form_validation->set_rules('name', $this->lang->line('label_name'), 'required|xss_clean');
+			$this->form_validation->set_rules('disturbance', $this->lang->line('label_disturber'), 'required|xss_clean');
+			$this->form_validation->set_rules('exposure', $this->lang->line('label_exposition'), 'required|xss_clean');
 			
-			$this->form_validation->set_message('required', 'El  %s es requerido');
+			$this->form_validation->set_message('required', $this->lang->line('error_required'));
 			
 			$types = $this->input->post('type');
 			$pics = $this->input->post('pic');
@@ -89,10 +117,10 @@ class MemCrefTest extends CI_Controller {
 				}
 				
 				if ($types[$start] != 1 || $types[$end] != 2) {
-					$this->form_validation->_error_array['custom_error'] = "Orden erroneo de los tipos";
+					$this->form_validation->_error_array['custom_error'] = $this->lang->line('error_order_type');
 				}
 			} else {
-				$this->form_validation->_error_array['custom_error'] = "Faltan elementos";
+				$this->form_validation->_error_array['custom_error'] = $this->lang->line('error_missing_elements');
 			}
 				
 			// if it's not valid, go back to the page showing errors

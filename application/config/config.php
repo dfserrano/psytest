@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= 'http://localhost/psytest';
+//$config['base_url']	= 'http://cref.0fees.net/';
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,23 @@ $config['uri_protocol']	= 'AUTO';
 $config['url_suffix'] = '';
 
 /*
+ |--------------------------------------------------------------------------
+| Supported Languages
+|--------------------------------------------------------------------------
+|
+| Contains all languages your site will store data in. Other languages can
+| still be displayed via language files, thats totally different.
+|
+| Check for HTML equivalents for characters such as  with the URL below:
+|    http://htmlhelp.com/reference/html40/entities/latin1.html
+|
+*/
+$config['supported_languages'] = array(
+		'english'=> array('name' => 'English', 'folder' => 'english'),
+		'spanish'=> array('name' => 'Espanol', 'folder' => 'spanish')
+);
+
+/*
 |--------------------------------------------------------------------------
 | Default Language
 |--------------------------------------------------------------------------
@@ -69,7 +87,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'spanish';
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +109,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 
 /*
@@ -224,7 +242,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'p5yt35t';
 
 /*
 |--------------------------------------------------------------------------

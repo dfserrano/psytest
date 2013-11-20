@@ -172,16 +172,18 @@ function nextSlide() {
 
 
 function setCurrentTargetColor(color) {
-	switch(color) {
-		case 'black': 	curTargetColor = "Negro"; break;
-		case 'red': 	curTargetColor = "Rojo"; break;
-		case 'green': 	curTargetColor = "Verde"; break;
-		case 'blue': 	curTargetColor = "Azul"; break;
-		case 'purple': 	curTargetColor = "Purpura"; break;
-		case 'yellow': 	curTargetColor = "Amarillo"; break;
-		case 'orange': 	curTargetColor = "Naranja"; break;
-		case 'magenta':	curTargetColor = "Magenta"; break;
-	}
+	curTargetColor = color;
+	
+	/*switch(color) {
+		case 'black': 	curTargetColor = "black"; break;
+		case 'red': 	curTargetColor = "red"; break;
+		case 'green': 	curTargetColor = "green"; break;
+		case 'blue': 	curTargetColor = "blue"; break;
+		case 'purple': 	curTargetColor = "purple"; break;
+		case 'yellow': 	curTargetColor = "yellow"; break;
+		case 'orange': 	curTargetColor = "orange"; break;
+		case 'magenta':	curTargetColor = "magenta"; break;
+	}*/
 }
 /**
  * Picks color and save the result
