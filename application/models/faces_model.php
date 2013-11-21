@@ -20,7 +20,8 @@ class Faces_model extends CI_Model {
 		
 		$pictures = $this->db->get()->result_array();
 		
-		$selected_language = $this->config->item('language');
+		$selected_language = $this->session->userdata('site_lang');
+		
 		if ($selected_language == 'spanish') {
 			return $pictures;
 		} else {
@@ -39,6 +40,7 @@ class Faces_model extends CI_Model {
 	 * @return globalized emotion
 	 */
 	public function get_globalized_emotion($emotion, $language='spanish') {
+		
 		if ($language == 'spanish')
 			return $emotion;
 	

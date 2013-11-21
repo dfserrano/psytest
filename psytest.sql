@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 01-08-2013 a las 17:53:50
+-- Tiempo de generación: 21-11-2013 a las 14:49:36
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -529,3 +529,24 @@ CREATE TABLE `test_timedcref` (
 -- Volcar la base de datos para la tabla `test_timedcref`
 -- 
 
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `user`
+-- 
+
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(20) collate utf8_spanish2_ci NOT NULL,
+  `username` varchar(20) collate utf8_spanish2_ci NOT NULL,
+  `password` varchar(32) collate utf8_spanish2_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
+
+-- 
+-- Volcar la base de datos para la tabla `user`
+-- 
+
+INSERT INTO `user` VALUES (1, 'Diego Serrano', 'dfserrano', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `user` VALUES (2, 'Edward Prada', 'edward', '202cb962ac59075b964b07152d234b70');

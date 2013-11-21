@@ -21,7 +21,7 @@ class Faces extends CI_Controller {
 	
 	public function index()
 	{
-		admin_only();
+		$this->admin_only();
 		
 		$data['title'] = $this->lang->line('menu_image_bank');
 		$data['pictures'] = $this->faces_model->get();
