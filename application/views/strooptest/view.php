@@ -64,6 +64,14 @@ testData.exposure = <?php echo $test['exposure'] ?>;
 testData.type = <?php echo $test['type'] ?>;
 testData.numQuestions = <?php echo $test['num_questions'] ?>;
 
+//strings for summary report
+label_num_right = '<?php echo $this->lang->line('label_num_right');?>';
+label_num_wrong = '<?php echo $this->lang->line('label_num_wrong');?>';
+label_avg_time_right = '<?php echo $this->lang->line('label_avg_time_right');?>';
+label_avg_time_wrong = '<?php echo $this->lang->line('label_avg_time_wrong');?>';
+label_avg_time_total = '<?php echo $this->lang->line('label_avg_time_total');?>';
+error_save = '<?php echo $this->lang->line('error_save');?>';
+
 // Loads information of the slides of the test
 slides = [<?php 
 		foreach ($slides as $slide) {

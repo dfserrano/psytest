@@ -1,8 +1,12 @@
 <div id="main">
 	<?php 
-	$username = $this->session->userdata('username');
+	$allowed_roles_add = array('admin', 'digit_admin');
+	$allowed_roles_report = array('admin', 'digit_admin', 'digit_viewer');
 	
-	if ($username) {
+	$username = $this->session->userdata('username');
+	$role = $this->session->userdata('role');
+	
+	if ($username && in_array($role, $allowed_roles_add)) {
 		?>
 		<div>
 			<a href="<?php echo site_url("digittest/add");?>" id="btn-add"><?php echo $this->lang->line('add_test');?></a><br/><br/>
@@ -24,7 +28,7 @@
 					&nbsp;
 					<a href="<?php echo site_url("digittest/results/" . $test['id']);?>">[<?php echo $this->lang->line('results');?>]</a>
 					<?php 
-					if ($username) {
+					if ($username && in_array($role, $allowed_roles_report)) {
 						?>
 						&nbsp;
 						<a href="<?php echo site_url("digittest/report/" . $test['id']);?>">[<?php echo $this->lang->line('report');?>]</a>

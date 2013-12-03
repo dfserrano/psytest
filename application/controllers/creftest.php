@@ -54,10 +54,11 @@ class CrefTest extends CI_Controller {
 	}
 	
 	
-	private function admin_only() {
+	private function admin_only($allowed_roles = array('admin')) {
 		$username = $this->session->userdata('username');
+		$role = $this->session->userdata('role');
 		
-		if ($username) {
+		if ($username && in_array($role, $allowed_roles)) {
 			return;
 		}
 		
@@ -66,7 +67,8 @@ class CrefTest extends CI_Controller {
 	
 	public function report($id)
 	{
-		$this->admin_only();
+		$allowed_roles = array('admin', 'cref_admin', 'cref_viewer');
+		$this->admin_only($allowed_roles);
 		
 		$data['title'] = $this->lang->line('report');
 	
@@ -84,7 +86,8 @@ class CrefTest extends CI_Controller {
 	 */
 	public function add()
 	{
-		$this->admin_only();
+		$allowed_roles = array('admin', 'cref_admin');
+		$this->admin_only($allowed_roles);
 		
 		$this->load->model('faces_model');
 		

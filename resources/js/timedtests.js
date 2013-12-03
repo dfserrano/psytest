@@ -210,13 +210,13 @@ function displayResults() {
 	if (overNum + underNum != 0)
 		total = (overTime + underTime) / (overNum + underNum);
 
-	summary = "Tiempo Promedio Sobreestimadas: "
+	summary = label_avg_time_overestimated + ": "
 			+ ((overNum != 0) ? Math.round(overTime / overNum) : 0)
 			+ " ms.<br/>";
-	summary += "Tiempo Promedio Subestimadas: "
+	summary += label_avg_time_underestimated + ": "
 			+ ((underNum != 0) ? Math.round(underTime / underNum) : 0)
 			+ " ms.<br/>";
-	summary += "Diferencia Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
+	summary += label_avg_time_total + ": " + Math.round(total) + " ms.<br/>";
 
 	$("#dialog-modal").dialog({
 		height : 275,
@@ -249,7 +249,7 @@ function displayResults() {
 		} else {
 			$("#dialog-modal-saving").empty();
 			$("#dialog-modal-saving")
-					.text('Hubo un error y no se pudo guardar');
+					.text(error_save);
 		}
 	});
 }

@@ -43,7 +43,7 @@ class creftest_model extends CI_Model {
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_cref', 'test_result_cref.id = test_result_item_cref.test_result_fk');
 		
-			$site_lang = $this->session->userdata('site_lang');
+			$site_lang = (($this->session->userdata('site_lang')) ? $this->session->userdata('site_lang') : $this->config->item('language'));
 			$results = $this->db->get()->result_array();
 			
 			for ($i=0; $i<sizeof($results); $i++) {

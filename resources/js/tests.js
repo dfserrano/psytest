@@ -199,13 +199,13 @@ function displayResults() {
 	if (numRight + numWrong != 0)
 		total = (timeRight + timeWrong) / (numRight + numWrong); 
 
-	var summary = "Correctas: " + numRight + "<br/>";
-	summary += "Erroneas: " + numWrong + "<br/>";
+	var summary = label_num_right + ": " + numRight + "<br/>";
+	summary += label_num_wrong + ": " + numWrong + "<br/>";
 	//summary += "No Contestadas: " + numUnanswered + "<br/>";
 	summary += "<hr/>";
-	summary += "Tiempo Promedio Correctas: " + ((numRight != 0)? Math.round(timeRight/numRight) : 0) + " ms.<br/>";
-	summary += "Tiempo Promedio Erroneas: " + ((numWrong != 0)? Math.round(timeWrong/numWrong) : 0) + " ms.<br/>";
-	summary += "Tiempo Promedio Total: " + Math.round(total) + " ms.<br/>";
+	summary += label_avg_time_right + ": " + ((numRight != 0)? Math.round(timeRight/numRight) : 0) + " ms.<br/>";
+	summary += label_avg_time_wrong + ": " + ((numWrong != 0)? Math.round(timeWrong/numWrong) : 0) + " ms.<br/>";
+	summary += label_avg_time_total + ": " + Math.round(total) + " ms.<br/>";
 
 	$("#dialog-modal" ).dialog({
 		height: 275,
@@ -235,7 +235,7 @@ function displayResults() {
 			$("#dialog-modal-saving").hide();
 		} else {
 			$("#dialog-modal-saving").empty();
-			$("#dialog-modal-saving").text('Hubo un error y no se pudo guardar');
+			$("#dialog-modal-saving").text(error_save);
 		}
 	});
 }

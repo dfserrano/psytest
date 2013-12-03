@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div id="buttons" style="text-align:center">
-		<a href="#" class="continue-button">AQU&Iacute;</a>
+		<a href="#" class="continue-button"><?php echo $this->lang->line('label_here');?></a>
 	</div>
 </div>
 
@@ -30,6 +30,12 @@ urlSave = "<?php echo base_url() . 'index.php/timedcreftest/save'?>";
 // Loads data of the test
 testData.testId = <?php echo $test['id'] ?>; 
 testData.disturbance = <?php echo $test['disturbance'] ?>;
+
+// strings for summary report
+label_avg_time_overestimated = '<?php echo $this->lang->line('label_avg_time_overestimated');?>';
+label_avg_time_underestimated = '<?php echo $this->lang->line('label_avg_time_underestimated');?>';
+label_avg_time_total = '<?php echo $this->lang->line('label_avg_time_total');?>';
+error_save = '<?php echo $this->lang->line('error_save');?>';
 
 // Loads information of the slides of the test
 slides = [<?php 

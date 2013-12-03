@@ -48,6 +48,14 @@ testData.disturbance = <?php echo $test['disturbance'] ?>;
 testData.type = <?php echo $test['type'] ?>;
 exposureTime = <?php echo $test['exposure']?>;
 
+//strings for summary report
+label_num_right = '<?php echo $this->lang->line('label_num_right');?>';
+label_num_wrong = '<?php echo $this->lang->line('label_num_wrong');?>';
+label_avg_time_right = '<?php echo $this->lang->line('label_avg_time_right');?>';
+label_avg_time_wrong = '<?php echo $this->lang->line('label_avg_time_wrong');?>';
+label_avg_time_total = '<?php echo $this->lang->line('label_avg_time_total');?>';
+error_save = '<?php echo $this->lang->line('error_save');?>';
+
 function showStartButton() {
 	if (timer != null)
 		clearInterval(timer);

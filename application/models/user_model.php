@@ -15,6 +15,7 @@ class user_model extends CI_Model {
 				$user = array_pop($users);
 					
 				$this->session->set_userdata('username', $user['username']);
+				$this->session->set_userdata('role', $user['role']);
 				$this->session->set_userdata('auth', 'yes');
 				
 				return true;
@@ -27,6 +28,7 @@ class user_model extends CI_Model {
 
 	public function logout() {
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('role');
 		$this->session->unset_userdata('auth');
 
 		redirect('/home/index/', 'refresh');

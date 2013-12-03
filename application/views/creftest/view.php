@@ -42,6 +42,14 @@ testData.testId = <?php echo $test['id'] ?>;
 testData.disturbance = <?php echo $test['disturbance'] ?>;
 exposureTime = <?php echo $test['exposure']?>;
 
+//strings for summary report
+label_num_right = '<?php echo $this->lang->line('label_num_right');?>';
+label_num_wrong = '<?php echo $this->lang->line('label_num_wrong');?>';
+label_avg_time_right = '<?php echo $this->lang->line('label_avg_time_right');?>';
+label_avg_time_wrong = '<?php echo $this->lang->line('label_avg_time_wrong');?>';
+label_avg_time_total = '<?php echo $this->lang->line('label_avg_time_total');?>';
+error_save = '<?php echo $this->lang->line('error_save');?>';
+
 // Loads information of the slides of the test
 slides = [<?php 
 		foreach ($slides as $slide) {
@@ -85,7 +93,7 @@ $(document).ready(function() {
 
 	// Opens test taker dialog
 	$("#dialog-form").dialog("open");
-	
+	displayResults();
 	showStartButton();
 	
 	// Handles clic on emotion buttons 

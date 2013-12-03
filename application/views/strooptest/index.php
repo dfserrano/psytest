@@ -1,8 +1,12 @@
 <div id="main">
 	<?php 
-	$username = $this->session->userdata('username');
+	$allowed_roles_add = array('admin', 'stroop_admin');
+	$allowed_roles_report = array('admin', 'stroop_admin', 'stroop_viewer');
 	
-	if ($username) {
+	$username = $this->session->userdata('username');
+	$role = $this->session->userdata('role');
+	
+	if ($username && in_array($role, $allowed_roles_add)) {
 		?>
 		<div>
 			<a href="<?php echo site_url("strooptest/add");?>" id="btn-add"><?php echo $this->lang->line('add_test');?></a><br/><br/>
@@ -24,7 +28,7 @@
 					&nbsp;
 					<a href="<?php echo site_url("strooptest/results/" . $test['id']);?>">[<?php echo $this->lang->line('results');?>]</a>
 					<?php 
-					if ($username) {
+					if ($username && in_array($role, $allowed_roles_report)) {
 						?>
 						&nbsp;
 						<a href="<?php echo site_url("strooptest/report/" . $test['id']);?>">[<?php echo $this->lang->line('report');?>]</a>

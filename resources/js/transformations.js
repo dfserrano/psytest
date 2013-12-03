@@ -8,7 +8,7 @@
  * @param oTrueWidth true width of o (as it may be hidden and report 0 as width)
  * @param oTrueHeight true height of o (as it may be hidden and report 0 as height)
  */
-function translate(o, frame, x, y, oTrueWidth=0, oTrueHeight=0) {
+function translate(o, frame, x, y, oTrueWidth, oTrueHeight) {
 	if (x == null) {
 		// width dimensions
 		divWidth = frame.width();

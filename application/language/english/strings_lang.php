@@ -81,6 +81,7 @@ $lang['label_time'] = "Time (ms)";
 $lang['label_right'] = "Right";
 $lang['label_wrong'] = "Wrong";
 $lang['label_diff_time'] = "Time Difference (ms)";
+$lang['label_here'] = "HERE";
 
 $lang['option_none'] = "None";
 $lang['option_bgcolor'] = "Background Color";
@@ -117,6 +118,7 @@ $lang['error_no_images_yet'] = "Sorry! We don't have images yet";
 $lang['error_no_test_yet'] = "Sorry! We don't have tests yet";
 $lang['error_no_results_yet'] = "Sorry! We don't have results yet";
 $lang['error_button_disabled_bef_test'] = "The button is only enabled when the test has already started";
+$lang['error_save'] = "There was an error and we could not save the results";
 
 $lang['instr_header'] = "Instructions";
 $lang['instr_cref'] = "In the following screen, you will see a set of faces that reflect an emotion, 

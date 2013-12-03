@@ -1,3 +1,9 @@
+<?php 
+$allowed_roles_bank = array('admin', 'cref_admin', 'memcref_admin', 'timedcref_admin');
+
+$username = $this->session->userdata('username');
+$role = $this->session->userdata('role');
+?>
 <div id="main">
 	<div>
 		<a href="<?php echo site_url("creftest/index");?>" class="menu-button"><?php echo $this->lang->line('menu_cref');?></a>
@@ -21,7 +27,7 @@
 	<?php 
 	$username = $this->session->userdata('username');
 	
-	if ($username) {
+	if ($username && in_array($role, $allowed_roles_bank)) {
 		?>
 		<br/>
 		<div>
