@@ -132,6 +132,7 @@ function nextSlide() {
 		} while (randomIndex == prevRandomIndex);
 
 		var color = 'black';
+		
 		if (testData.type == 1) {
 			color = 'black';
 			

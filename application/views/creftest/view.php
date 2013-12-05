@@ -93,7 +93,7 @@ $(document).ready(function() {
 
 	// Opens test taker dialog
 	$("#dialog-form").dialog("open");
-	displayResults();
+	
 	showStartButton();
 	
 	// Handles clic on emotion buttons 

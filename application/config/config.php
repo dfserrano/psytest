@@ -74,7 +74,8 @@ $config['url_suffix'] = '';
 */
 $config['supported_languages'] = array(
 		'english'=> array('name' => 'English', 'folder' => 'english'),
-		'spanish'=> array('name' => 'Espanol', 'folder' => 'spanish')
+		'spanish'=> array('name' => 'Espanol', 'folder' => 'spanish'),
+		'portuguese'=> array('name' => 'Portugues', 'folder' => 'portuguese')
 );
 
 /*

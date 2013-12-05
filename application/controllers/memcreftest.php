@@ -13,7 +13,7 @@ class MemCrefTest extends CI_Controller {
 	public function index()
 	{
 		$data['tests'] = $this->memcreftest_model->get();
-		$data['title'] = $this->lang->line('menu_cref_timed');
+		$data['title'] = $this->lang->line('menu_cref_mem');
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('memcreftest/index', $data);
