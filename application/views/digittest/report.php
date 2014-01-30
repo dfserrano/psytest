@@ -2,6 +2,10 @@
 	<a href="<?php echo site_url("home/index");?>" class="menu-button"><?php echo $this->lang->line('back_to_menu');?></a>
 	<br/>&nbsp;
 	<?php if (sizeof($results) > 0):?>
+		<div class="number_of_results">
+			<?php echo $this->lang->line('label_number_of_results');?>: <strong><?php echo $num_results;?></strong>
+		</div>
+		
 	    <table class="CSS_Table_Example">
 	    <tr>
 	      <td><?php echo $this->lang->line('label_name');?></td>
@@ -12,11 +16,31 @@
 	      <td><?php echo $this->lang->line('label_time');?></td>
 	    </tr>
 	    <?php 
-		foreach ($results as $code=>$result) {
+	    $prevId = -1;
+	    
+		for ($i=0; $i<sizeof($results); $i++) {
+			$result = $results[$i];
+			
 			echo "<tr>";
-			echo "<td>" . $result['firstname'] . ' ' . $result['lastname'] . "</td>";
-			echo "<td>" . $result['age'] . "</td>";
-			echo "<td>" . $result['date'] . "</td>";
+			
+			if ($prevId != $result["id"]) {
+				$count = 1;
+			
+				for ($j=$i+1; $j<sizeof($results); $j++) {
+					if ($result["id"] == $results[$j]["id"]) {
+						$count++;
+					} else {
+						break;
+					}
+				}
+			
+				echo "<td rowspan='".$count."'>" . $result['firstname'] . ' ' . $result['lastname'] . "</td>";
+				echo "<td rowspan='".$count."'>" . $result['age'] . "</td>";
+				echo "<td rowspan='".$count."'>" . $result['date'] . "</td>";
+			
+				$prevId = $result["id"];
+			}
+			
 			echo "<td>" . $result['target'] . "</td>";
 			echo "<td>" . $result['actual'] . "</td>";
 			echo "<td>" . $result['time'] . "</td>";

@@ -9,6 +9,11 @@
  * @param oTrueHeight true height of o (as it may be hidden and report 0 as height)
  */
 function translate(o, frame, x, y, oTrueWidth, oTrueHeight) {
+	// adjust images for expanded 7cm
+	// REMOVE IF IMAGE IS 5 cm
+	oTrueWidth += 30;
+	oTrueHeight += 30;
+	
 	if (x == null) {
 		// width dimensions
 		divWidth = frame.width();

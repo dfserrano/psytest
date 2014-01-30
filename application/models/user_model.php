@@ -5,7 +5,17 @@ class user_model extends CI_Model {
 	{
 		$this->load->database();
 	}
+	
+	public function get() {
+		$this->db->from('user')->order_by("username", "asc");
+		return $this->db->get()->result_array();
+	}
 
+	public function get_user($username)
+	{
+		return array_pop($this->db->get_where('user', array('username' => $username))->result_array());
+	}
+	
 	public function login($data) {
 		if ($this->input->post('username'))
 		{
@@ -32,5 +42,46 @@ class user_model extends CI_Model {
 		$this->session->unset_userdata('auth');
 
 		redirect('/home/index/', 'refresh');
+	}
+	
+	public function change_password($data) {
+		$this->db->trans_start();
+	
+		$user_data = array(
+				'password' => $data['password']
+		);
+	
+		$this->db->where('username', $data['username']);
+		$this->db->update('user', $user_data);
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
+	}
+	
+	public function add($data) {
+		$this->db->trans_start();
+	
+		$user_data = array(
+				'name' => $data['username'],
+				'username' => $data['username'],
+				'password' => $data['password'],
+				'role' => $data['role']
+		);
+		$this->db->insert('user', $user_data);
+		
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
+	}
+	
+	public function delete($id) {
+		$this->db->trans_start();
+	
+		$this->db->where('id', $id);
+		$this->db->delete('user');
+	
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
 	}
 }

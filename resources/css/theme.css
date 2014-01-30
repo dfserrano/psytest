@@ -16,7 +16,7 @@
 body {
 	background-color: #fff;
 	/*margin: 40px;*/
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
+	font: 18px/25px normal Helvetica, Arial, sans-serif;
 	color: #4F5155;
 }
 
@@ -98,7 +98,7 @@ fieldset {
 .emotion-button,.continue-button {
 	padding: 15px;
 	line-height: 25pt;
-	font-size: 16pt;
+	font-size: 20pt;
 	text-decoration: none;
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
@@ -176,7 +176,7 @@ fieldset {
 }
 
 .test-info {
-	width: 250px;
+	width: 350px;
 	display: inline-block;
 }
 
@@ -364,4 +364,34 @@ TABLES
 
 .CSS_Table_Example tr:last-child td:last-child {
 	border-width: 0px 0px 0px 0px;
+}
+
+.cref_image {
+	position: relative;
+	height: 6cm;
+}
+
+.login {
+	text-align: right; 
+	font-size: 12pt;
+}
+
+.languages {
+	font-size: 12pt;
+}
+
+.number_of_results {
+	font-size: 80%;
+	padding:3px;
+}
+
+.tabla_reporte {
+	border:#000 1px solid; 
+	border-spacing:0px;
+	width:100%
+}
+
+.tabla_reporte tr td {
+	border:#000 1px solid; 
+	padding:5px;
 }

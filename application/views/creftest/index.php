@@ -32,6 +32,8 @@
 						?>
 						&nbsp;
 						<a href="<?php echo site_url("creftest/report/" . $test['id']);?>">[<?php echo $this->lang->line('report');?>]</a>
+						&nbsp;
+						<a href="<?php echo site_url("creftest/edit/" . $test['id']);?>">[<?php echo $this->lang->line('edit');?>]</a>
 						<?php 
 					}
 					?>

@@ -38,7 +38,7 @@ class creftest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('firstname, lastname, age, date, pic_code, target, actual, time');
+			$this->db->select('test_result_cref.id, firstname, lastname, age, date, pic_code, target, actual, time');
 			$this->db->from('test_result_cref');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_cref', 'test_result_cref.id = test_result_item_cref.test_result_fk');
@@ -55,6 +55,86 @@ class creftest_model extends CI_Model {
 		}
 		
 		return null;
+	}
+	
+	public function get_single_test_results($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_cref.id, firstname, lastname, age, docid, date, pic_code, target, actual, time');
+			$this->db->from('test_result_cref');
+			$this->db->where('test_result_cref.id', $id);
+			$this->db->join('test_result_item_cref', 'test_result_cref.id = test_result_item_cref.test_result_fk');
+	
+			$site_lang = (($this->session->userdata('site_lang')) ? $this->session->userdata('site_lang') : $this->config->item('language'));
+			$results = $this->db->get()->result_array();
+				
+			for ($i=0; $i<sizeof($results); $i++) {
+				$results[$i]['target'] = ucfirst($this->faces_model->get_globalized_emotion($results[$i]['target'], $site_lang));
+				$results[$i]['actual'] = ucfirst($this->faces_model->get_globalized_emotion($results[$i]['actual'], $site_lang));
+			}
+				
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_takers($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_cref.id, firstname, lastname, age, docid, date');
+			$this->db->from('test_result_cref');
+			$this->db->where('test_fk', $id);
+						
+			$results = $this->db->get()->result_array();
+			
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_taker($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_cref.id, firstname, lastname, age, docid, test_fk');
+			$this->db->from('test_result_cref');
+			$this->db->where('id', $id);
+				
+			$results = $this->db->get()->result_array();
+				
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function edit_taker($data) {
+		$this->db->trans_start();
+	
+		$test_data = array(
+				'firstname' => $data['firstname'],
+				'lastname' => $data['lastname'],
+				'age' => $data['age'],
+				'docid' => $data['docid']
+		);
+		
+		$this->db->where('id', $data["id"]);
+		$this->db->update('test_result_cref', $test_data);
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
+	}
+	
+	public function delete_taker($id) {
+		$this->db->trans_start();
+	
+		$this->db->where('test_result_fk', $id);
+		$this->db->delete('test_result_item_cref');
+		
+		$this->db->where('id', $id);
+		$this->db->delete('test_result_cref');
+		
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
 	}
 
 	public function add_test($data) {

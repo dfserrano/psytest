@@ -39,7 +39,7 @@ class memcreftest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('firstname, lastname, age, date, picture.code, num, pic_id, actual_time, success');
+			$this->db->select('test_result_memcref.id, firstname, lastname, age, date, picture.code, num, pic_id, actual_time, success');
 			$this->db->from('test_result_memcref');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_memcref', 'test_result_memcref.id = test_result_item_memcref.test_result_fk');
@@ -49,6 +49,81 @@ class memcreftest_model extends CI_Model {
 		}
 		
 		return null;
+	}
+	
+	
+	public function get_single_test_results($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_memcref.id, firstname, lastname, age, docid, date, picture.code, num, pic_id, actual_time, success');
+			$this->db->from('test_result_memcref');
+			$this->db->where('test_result_memcref.id', $id);
+			$this->db->join('test_result_item_memcref', 'test_result_memcref.id = test_result_item_memcref.test_result_fk');
+			$this->db->join('picture', 'picture.id = pic_id');
+			$results = $this->db->get()->result_array();
+			
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_takers($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_memcref.id, firstname, lastname, age, docid, date');
+			$this->db->from('test_result_memcref');
+			$this->db->where('test_fk', $id);
+	
+			$results = $this->db->get()->result_array();
+				
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_taker($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_memcref.id, firstname, lastname, age, docid, test_fk');
+			$this->db->from('test_result_memcref');
+			$this->db->where('id', $id);
+	
+			$results = $this->db->get()->result_array();
+	
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function edit_taker($data) {
+		$this->db->trans_start();
+	
+		$test_data = array(
+				'firstname' => $data['firstname'],
+				'lastname' => $data['lastname'],
+				'age' => $data['age'],
+				'docid' => $data['docid']
+		);
+	
+		$this->db->where('id', $data["id"]);
+		$this->db->update('test_result_memcref', $test_data);
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
+	}
+	
+	public function delete_taker($id) {
+		$this->db->trans_start();
+	
+		$this->db->where('test_result_fk', $id);
+		$this->db->delete('test_result_item_memcref');
+	
+		$this->db->where('id', $id);
+		$this->db->delete('test_result_memcref');
+	
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
 	}
 
 	public function add_test($data) {

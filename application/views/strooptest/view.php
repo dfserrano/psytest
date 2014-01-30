@@ -99,7 +99,7 @@ function showStartButton() {
 
 $(document).ready(function() {
 	// Opens test taker dialog
-	$("#dialog-form").dialog("open");
+	$("#dialog-form").dialog({height: 500, modal:true, autoOpen:true});
 	
 	showStartButton();
 	

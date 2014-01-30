@@ -37,7 +37,7 @@ class timedcreftest_model extends CI_Model {
 	
 	public function get_test_results($id) {
 		if (is_numeric($id)) {
-			$this->db->select('firstname, lastname, age, date, pic_code, target_time, actual_time');
+			$this->db->select('test_result_timedcref.id, firstname, lastname, age, date, pic_code, target_time, actual_time');
 			$this->db->from('test_result_timedcref');
 			$this->db->where('test_fk', $id);
 			$this->db->join('test_result_item_timedcref', 'test_result_timedcref.id = test_result_item_timedcref.test_result_fk');
@@ -46,6 +46,80 @@ class timedcreftest_model extends CI_Model {
 		}
 		
 		return null;
+	}
+	
+	
+	public function get_single_test_results($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_timedcref.id, firstname, lastname, age, docid, date, pic_code, target_time, actual_time');
+			$this->db->from('test_result_timedcref');
+			$this->db->where('test_result_timedcref.id', $id);
+			$this->db->join('test_result_item_timedcref', 'test_result_timedcref.id = test_result_item_timedcref.test_result_fk');
+			$results = $this->db->get()->result_array();
+			
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_takers($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_timedcref.id, firstname, lastname, age, docid, date');
+			$this->db->from('test_result_timedcref');
+			$this->db->where('test_fk', $id);
+	
+			$results = $this->db->get()->result_array();
+				
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function get_test_taker($id) {
+		if (is_numeric($id)) {
+			$this->db->select('test_result_timedcref.id, firstname, lastname, age, docid, test_fk');
+			$this->db->from('test_result_timedcref');
+			$this->db->where('id', $id);
+	
+			$results = $this->db->get()->result_array();
+	
+			return $results;
+		}
+	
+		return null;
+	}
+	
+	public function edit_taker($data) {
+		$this->db->trans_start();
+	
+		$test_data = array(
+				'firstname' => $data['firstname'],
+				'lastname' => $data['lastname'],
+				'age' => $data['age'],
+				'docid' => $data['docid']
+		);
+	
+		$this->db->where('id', $data["id"]);
+		$this->db->update('test_result_timedcref', $test_data);
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
+	}
+	
+	public function delete_taker($id) {
+		$this->db->trans_start();
+	
+		$this->db->where('test_result_fk', $id);
+		$this->db->delete('test_result_item_timedcref');
+	
+		$this->db->where('id', $id);
+		$this->db->delete('test_result_timedcref');
+	
+		$this->db->trans_complete();
+	
+		return $this->db->trans_status();
 	}
 
 	public function add_test($data) {

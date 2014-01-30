@@ -35,11 +35,22 @@ $role = $this->session->userdata('role');
 		</div>
 		<?php 
 	}
+	
+	if ($username && in_array($role, array("admin"))) {
+		?>
+			<br/>
+			<div>
+				<a href="<?php echo site_url("user/index");?>" class="menu-button-aux"><?php echo $this->lang->line('menu_user');?></a>
+			</div>
+			<?php 
+		}
 	?>
 	
 	<br/><br/><br/>
-	<?php echo $this->lang->line('label_lang_availability');?>
-	<a href="<?php echo site_url("home/switchLanguage/spanish");?>" title="<?php echo $this->lang->line('label_lang_spanish');?>"><img src="<?php echo base_url() . 'resources/img/co.png'?>"/></a>
-	<a href="<?php echo site_url("home/switchLanguage/english");?>" title="<?php echo $this->lang->line('label_lang_english');?>"><img src="<?php echo base_url() . 'resources/img/us.png'?>"/></a>
-	<a href="<?php echo site_url("home/switchLanguage/portuguese");?>" title="<?php echo $this->lang->line('label_lang_portuguese');?>"><img src="<?php echo base_url() . 'resources/img/br.png'?>"/></a>
+	<div class="languages">
+		<?php echo $this->lang->line('label_lang_availability');?>
+		<a href="<?php echo site_url("home/switchLanguage/spanish");?>" title="<?php echo $this->lang->line('label_lang_spanish');?>"><img src="<?php echo base_url() . 'resources/img/co.png'?>"/></a>
+		<a href="<?php echo site_url("home/switchLanguage/english");?>" title="<?php echo $this->lang->line('label_lang_english');?>"><img src="<?php echo base_url() . 'resources/img/us.png'?>"/></a>
+		<a href="<?php echo site_url("home/switchLanguage/portuguese");?>" title="<?php echo $this->lang->line('label_lang_portuguese');?>"><img src="<?php echo base_url() . 'resources/img/br.png'?>"/></a>
+	</div>
 </div>

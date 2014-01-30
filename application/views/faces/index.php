@@ -102,7 +102,7 @@ $("#dialog-form").dialog({
 });
 
 $("#btn-add").click(function( ){
-	$("#dialog-form").dialog("open");
+	$("#dialog-form").dialog({height: 400, width: 400, modal:true, autoOpen:true});
 });
 
 </script>

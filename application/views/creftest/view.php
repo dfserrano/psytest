@@ -6,32 +6,39 @@
 	<div id="slide"
 		style="position: relative; height: 500px; width: 700px; display: inline-block; text-align: left">
 		<div id="instructions" style="text-align: center">
-			<h2><?php echo $this->lang->line('instr_header');?></h2>
+			<h2>
+				<?php echo $this->lang->line('instr_header');?>
+			</h2>
 			<br />
 			<?php echo $this->lang->line('instr_cref');?>
 			<br /> <br />
 		</div>
 		<div id="loading" style="text-align: center; width: 100%">
 			<img src="<?php echo base_url() . 'resources/img/ajax-loader.gif'?>" />
-			<br /><?php echo $this->lang->line('label_wait_while_loading');?>...<br />
+			<br />
+			<?php echo $this->lang->line('label_wait_while_loading');?>
+			...<br />
 		</div>
 	</div>
 	<div id="buttons" style="text-align: center">
-		<a href="#" rel="alegria" class="emotion-button"><?php echo $this->lang->line('option_joy');?></a> 
-		<a href="#" rel="asco" class="emotion-button"><?php echo $this->lang->line('option_disgust');?></a> 
-		<a href="#" rel="ira" class="emotion-button"><?php echo $this->lang->line('option_anger');?></a> 
-		<a href="#" rel="miedo"	class="emotion-button"><?php echo $this->lang->line('option_fear');?></a> 
-		<a href="#" rel="sorpresa" class="emotion-button"><?php echo $this->lang->line('option_surprise');?></a> 
-		<a href="#" rel="tristeza" class="emotion-button"><?php echo $this->lang->line('option_sadness');?></a> 
-		<a href="#" rel="neutra" class="emotion-button"><?php echo $this->lang->line('option_neutral');?></a>
+		<a href="#" rel="alegria" class="emotion-button"><?php echo $this->lang->line('option_joy');?>
+		</a> <a href="#" rel="asco" class="emotion-button"><?php echo $this->lang->line('option_disgust');?>
+		</a> <a href="#" rel="ira" class="emotion-button"><?php echo $this->lang->line('option_anger');?>
+		</a> <a href="#" rel="miedo" class="emotion-button"><?php echo $this->lang->line('option_fear');?>
+		</a> <a href="#" rel="sorpresa" class="emotion-button"><?php echo $this->lang->line('option_surprise');?>
+		</a> <a href="#" rel="tristeza" class="emotion-button"><?php echo $this->lang->line('option_sadness');?>
+		</a> <a href="#" rel="neutra" class="emotion-button"><?php echo $this->lang->line('option_neutral');?>
+		</a>
 	</div>
 </div>
 
-<script src="<?php echo base_url() . 'resources/js/tests.js'?>"></script>
+<script
+	src="<?php echo base_url() . 'resources/js/tests.js'?>"></script>
 <script>
 var continueButtonString = "<?php echo $this->lang->line('continue');?>";
 </script>
-<script	src="<?php echo base_url() . 'resources/js/testsDialog.js'?>"></script>
+<script
+	src="<?php echo base_url() . 'resources/js/testsDialog.js'?>"></script>
 
 <script>
 // url for ajax save
@@ -92,7 +99,8 @@ $(document).ready(function() {
 	preload(slides);
 
 	// Opens test taker dialog
-	$("#dialog-form").dialog("open");
+	//$("#dialog-form").dialog("open");
+	$("#dialog-form").dialog({height: 500, modal:true, autoOpen:true});
 	
 	showStartButton();
 	
