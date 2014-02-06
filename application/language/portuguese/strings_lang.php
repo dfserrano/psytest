@@ -27,41 +27,41 @@ $lang['label_lastname'] = "Sobrenome";
 $lang['label_age'] = "Edade";
 $lang['label_id_doc'] = "Numero de Identidade";
 $lang['label_disturber'] = "Perturbador";
-$lang['label_exposition'] = "Exposicao";
+$lang['label_exposition'] = "Exposição";
 $lang['label_type'] = "Tipo";
-$lang['label_code'] = "Codigo";
-$lang['label_emotion'] = "Emocao";
+$lang['label_code'] = "Código";
+$lang['label_emotion'] = "Emoção";
 $lang['label_image_file'] = "Arquivo";
 $lang['label_num_questions'] = "Perguntas";
 $lang['label_pick_face'] = "Escolha um rostro";
 $lang['label_x'] = "X";
 $lang['label_y'] = "Y";
-$lang['label_rotate'] = "Rotacao";
+$lang['label_rotate'] = "Rotação";
 $lang['label_flip'] = "Girar";
 $lang['label_add_image'] = "Inserir Imagen";
 $lang['label_save'] = "Salvar";
 $lang['label_saving'] = "Salvando...";
 $lang['label_cancel'] = "Cancelar";
-$lang['label_summary'] = "Resumo";
+$lang['label_summary'] = "Resúmo";
 $lang['label_num_right'] = "# Aciertos";
 $lang['label_num_wrong'] = "# Erros";
 $lang['label_num_answers'] = "# Respostas";
-$lang['label_num_overestimated'] = "# Sobre-Estimacao";
-$lang['label_num_underestimated'] = "# Infra-Estiamacao";
-$lang['label_avg_time_right'] = "Tempo Promedio Corretas";
-$lang['label_avg_time_wrong'] = "Tempo Promedio Incorretas";
-$lang['label_avg_time_overestimated'] = "Tempo Promedio Sobre-Estimacao";
-$lang['label_avg_time_underestimated'] = "Tempo Promedio Infra-Estimacao";
-$lang['label_avg_time_total'] = "Tempo Promedio Total";
-$lang['label_avg_time'] = "Tempo Promedio (ms)";
+$lang['label_num_overestimated'] = "# Sobre-Estimação";
+$lang['label_num_underestimated'] = "# Infra-Estiamação";
+$lang['label_avg_time_right'] = "Tempo Médio Corretas";
+$lang['label_avg_time_wrong'] = "Tempo Médio Incorretas";
+$lang['label_avg_time_overestimated'] = "Tempo Médio Sobre-Estimação";
+$lang['label_avg_time_underestimated'] = "Tempo Médio Infra-Estimação";
+$lang['label_avg_time_total'] = "Tempo Médio Total";
+$lang['label_avg_time'] = "Tempo Médio (ms)";
 $lang['label_num_right_vs_wrong'] = "Corretas vs. Incorretas - Respostas";
-$lang['label_time_right_vs_wrong'] = "Corretas vs. Incorretas - Tempo Promedio";
-$lang['label_num_over_vs_under'] = "Sobre vs. Infra Estimacao - Respostas";
-$lang['label_time_over_vs_under'] = "Sobre vs. Infra Estimacao - Tempo Promedio";
+$lang['label_time_right_vs_wrong'] = "Corretas vs. Incorretas - Tempo Médio";
+$lang['label_num_over_vs_under'] = "Sobre vs. Infra Estimação - Respostas";
+$lang['label_time_over_vs_under'] = "Sobre vs. Infra Estimação - Tempo Médio";
 $lang['label_all_required'] = "Tudos sao de preenchimento";
 $lang['label_user_data'] = "Dados do Usuario";
 $lang['label_wait_while_loading'] = "Por favor, aguarde que o teste inicie";
-$lang['label_click_when_ready'] = "De un toque cuando este pronto";
+$lang['label_click_when_ready'] = "De um toque quando este pronto";
 $lang['label_series_length'] = "Longitude da serie";
 $lang['label_question'] = "Pergunta";
 $lang['label_word'] = "Palavra";
@@ -86,16 +86,17 @@ $lang['label_wrong'] = "Erro";
 $lang['label_diff_time'] = "Diferencia do Tempo (ms)";
 $lang['label_here'] = "AQU&iacute;";
 $lang['label_number_of_results'] = "N&uacute;mero de Resultados";
-$lang['label_confirmation_delete'] = "Esta seguro que quiere eliminar el registro?";
+$lang['label_confirmation_delete'] = "Esta seguro que quier eliminar o registro?";
 $lang['label_edit'] = "Edit";
 $lang['label_delete'] = "Delete";
 $lang['label_report'] = "Report";
 $lang['label_role'] = "Role";
 $lang['label_profile'] = "Profile";
-$lang['label_change_password'] = "Change Password";
-$lang['label_new_password'] = "Nueva Clave";
-$lang['label_password_conf'] = "Password Confirmation";
-$lang['label_add_user'] = "Nuevo Usuario";
+$lang['label_change_password'] = "Alterar a Chave";
+$lang['label_new_password'] = "Nova Chave";
+$lang['label_password_conf'] = "Confirmação de Chave";
+$lang['label_add_user'] = "Novo Usuario";
+$lang['label_copyright'] = "Universidad Pontificia Bolivariana - Bucaramanga. Proibida a reprodução total ou parcial, e sua tradução para qualquer idioma sem a permissão por escrito do proprietário";
 
 $lang['option_none'] = "Ninhuno";
 $lang['option_bgcolor'] = "Cor da Tela";
@@ -138,31 +139,31 @@ $lang['option_timedcref_viewer'] = "Timed CREF Viewer";
 
 $lang['error_required'] = 'O  %s e requerido';
 $lang['error_order_type'] = "Orden incoreto de tipos";
-$lang['error_missing_elements'] = "Precisa sen elementos";
-$lang['error_no_images_yet'] = "Nao temos imágenes";
-$lang['error_no_test_yet'] = "Nao temos provas";
-$lang['error_no_results_yet'] = "Nao temos resultados";
-$lang['error_button_disabled_bef_test'] = "El bot&oacute;n solo estar&aacute; habilitado cuando la prueba haya empezado";
-$lang['error_save'] = "Hubo un error y no se pudo guardar";
+$lang['error_missing_elements'] = "Precisa sem elementos";
+$lang['error_no_images_yet'] = "Não temos imágenes";
+$lang['error_no_test_yet'] = "Não temos provas";
+$lang['error_no_results_yet'] = "Não temos resultados";
+$lang['error_button_disabled_bef_test'] = "Conferir quando o teste tem iniciando";
+$lang['error_save'] = "Houve um erro e não pôde ser salvo";
 
 $lang['instr_header'] = "Instrucoes";
-$lang['instr_cref'] = "A continuacao, voce vai ver uma serie de rostros humanos, voce tem
-		que identificar a emocao que o rostro reflexa.  Por favor indique que a resposta
+$lang['instr_cref'] = "A continuação, voce vai ver uma serie de rostros humanos, você tem
+		que identificar a emoção que o rostro reflexa.  Por favor indique que a resposta
 		carreita on tela";
-$lang['instr_digits'] = "A continuaci&oacute;n usted vera una serie de n&uacute;meros.
-			Trate de memorizar la secuencia y dig&iacute;telos";
-$lang['instr_digits_desc'] = " en reverso";
-$lang['instr_cref_mem'] = "A continuaci&oacute;n usted ver&aacute; una serie de im&aacute;genes.  Cada conjunto de las im&aacute;genes
-			se presentar&aacute; durante un tiempo determinado.  Usted deber&aacute; dar clic en el segundo
-			conjunto de imagenes, en una de las imagenes que aparecio en el conjunto anterior.";
-$lang['instr_cref_timed'] = "A continuaci&oacute;n usted vera una serie de im&aacute;genes.  Cada una de las im&aacute;genes
-			se presentar&aacute; durante un tiempo determinado.  Usted deber&aacute; calcular el tiempo 
+$lang['instr_digits'] = "A continuação usted vera una serie de n&uacute;meros.
+			Trate de memorizar a secuencia e dig&iacute;telos";
+$lang['instr_digits_desc'] = " em reverso";
+$lang['instr_cref_mem'] = "A continuação você ver&aacute; uma serie de im&aacute;genes.  Cada conjunto de las im&aacute;genes
+			se presentar&aacute; durante um tempo determinado.  Você debera; dar clic en el segundo
+			conjunto de imagenes, em um das imagenes que foi apresentada en el conjunto anterior.";
+$lang['instr_cref_timed'] = "A continuação você vera una serie de im&aacute;genes.  Cada uma das imagenes
+			se presentar&aacute; durante um tempo determinado.  Usted deber&aacute; estimar o tempo 
 			en el que la im&aacute;gen estuvo visible y una vez esta se haga invisible,
-			dar clic en el bot&oacute;n AQU&Iacute; cuando estime que el mismo tiempo en el que la imagen estuvo 
+			dar clic en el bot&oacute;n AQU&Iacute; quando estime que o mesmo tempo en el que la imagen estuvo 
 			visible ha transcurrido.";
-$lang['instr_stroop_1'] = "A continuaci&oacute;n usted ver&aacute; una palabra, y deber&aacute;
-							escoger la palabra a la cual se refiere.";
-$lang['instr_stroop_2'] = "A continuaci&oacute;n usted ver&aacute; una palabra, y deber&aacute;
-							escoger el color de la palabra.";
-$lang['instr_stroop_3'] = "A continuaci&oacute;n usted ver&aacute; una palabra de cierto color, y deber&aacute;
-							escoger el color con el cual se escribe la palabra.";
+$lang['instr_stroop_1'] = "A continuação você ver&aacute; uma palavra, y deber&aacute;
+							escolher a palavra a la qual se refiere.";
+$lang['instr_stroop_2'] = "A continuação você ver&aacute; uma palavra, y deber&aacute;
+							escolher a cor da la palavra.";
+$lang['instr_stroop_3'] = "A continuação você ver&aacute; uma palavra de certo cor, y deber&aacute;
+							escolher a cor con el cual se escribe la palavra.";

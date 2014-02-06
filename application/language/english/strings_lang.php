@@ -96,6 +96,7 @@ $lang['label_change_password'] = "Change Password";
 $lang['label_new_password'] = "New Password";
 $lang['label_password_conf'] = "Password Confirmation";
 $lang['label_add_user'] = "New User";
+$lang['label_copyright'] = "Universidad Pontificia Bolivariana - Bucaramanga. Prohibited its total or partial reproduction, and its translation into any language without written permission from the owner";
 
 $lang['option_none'] = "None";
 $lang['option_bgcolor'] = "Background Color";
